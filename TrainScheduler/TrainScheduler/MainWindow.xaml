@@ -1,0 +1,18 @@
+﻿<Window x:Class="TrainScheduler.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TrainScheduler"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="disconnect" Content="Disconnect" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="23" Width="87" Click="disconnect_Click"/>
+        <Button Content="Vezi Toate Trenurile" HorizontalAlignment="Left" Margin="54,108,0,0" VerticalAlignment="Top" Height="41" Width="152" Click="Button_Click"/>
+        <Label x:Name="welcomeLabel" Content="Bine ai venit, username" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <Button Content="Cauta Tren" HorizontalAlignment="Left" Margin="54,163,0,0" VerticalAlignment="Top" Height="41" Width="152"/>
+        <Button Content="Planuieste o calatorie" HorizontalAlignment="Left" Margin="54,217,0,0" VerticalAlignment="Top" Height="41" Width="152"/>
+        <Button Content="Admin Portal&#xD;&#xA;" HorizontalAlignment="Left" Margin="54,361,0,0" VerticalAlignment="Top" Height="41" Width="152"/>
+
+    </Grid>
+</Window>

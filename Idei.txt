@@ -1,0 +1,4 @@
+Administratorii 
+--sa aiba o pagina de administrare unde o să vină cererile de I am student/elder 
+	și le poate aproba/deny
+--Acolo o să poată vedea toți userii și să facă admin pe oricine
