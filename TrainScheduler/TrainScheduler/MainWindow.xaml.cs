@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,6 +21,13 @@ namespace TrainScheduler
     /// </summary>
     public partial class MainWindow : Window
     {
+        public void ShowMainWin(string email)
+        {
+            String str = "Bine ai venit, ";
+            welcomeLabel.Content = str + email;
+
+            this.Show();
+        }
         public MainWindow()
         {
             InitializeComponent();

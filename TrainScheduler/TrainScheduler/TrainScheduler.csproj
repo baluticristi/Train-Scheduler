@@ -35,8 +35,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,8 +64,50 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Line.cs">
+      <DependentUpon>TrainDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LineStation.cs">
+      <DependentUpon>TrainDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Request.cs">
+      <DependentUpon>TrainDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Role.cs">
+      <DependentUpon>TrainDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Station.cs">
+      <DependentUpon>TrainDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ticket.cs">
+      <DependentUpon>TrainDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Train.cs">
+      <DependentUpon>TrainDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TrainDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TrainDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TrainDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TrainDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TrainDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TrainDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>TrainDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Wagon.cs">
+      <DependentUpon>TrainDataModel.tt</DependentUpon>
     </Compile>
     <Page Include="LoginPage.xaml">
       <SubType>Designer</SubType>
@@ -100,13 +151,36 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <EntityDeploy Include="TrainDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TrainDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="TrainDataModel.edmx.diagram">
+      <DependentUpon>TrainDataModel.edmx</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TrainDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TrainDataModel.Context.cs</LastGenOutput>
+      <DependentUpon>TrainDataModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="TrainDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TrainDataModel.edmx</DependentUpon>
+      <LastGenOutput>TrainDataModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

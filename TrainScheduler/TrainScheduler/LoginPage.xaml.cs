@@ -19,6 +19,7 @@ namespace TrainScheduler
     /// </summary>
     public partial class LoginPage : Window
     {
+        private TrainEntities context = new TrainEntities();
         public LoginPage()
         {
             InitializeComponent();
@@ -34,13 +35,37 @@ namespace TrainScheduler
             passwordTextBox.Password = "";
         }
 
+        private bool verifiyCredentials()
+        {
+            var data = from u in context.Users
+                       select new
+                       {
+                           u.email,
+                           u.password
+                       };
+
+            var users = data.ToList();
+
+            foreach (var user in users)
+            {
+                if(user.email.ToString() == usernameTextBox.Text && user.password.ToString() == Convert.ToBase64String(RegisterPage.getHashForPasswd(passwordTextBox.Password)))
+                    return true;
+            }
+            return false;
+        }
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
             var window = new MainWindow();
 
-            window.Show();
+            if (verifiyCredentials() == true)
+            {
+                this.Close();
+                window.ShowMainWin(usernameTextBox.Text);
+            }
+            else
+                MessageBox.Show("Invalid Credentials");
 
-            this.Close();
+            //this.Close();
         }
 
         private void registerButton_Click(object sender, RoutedEventArgs e)

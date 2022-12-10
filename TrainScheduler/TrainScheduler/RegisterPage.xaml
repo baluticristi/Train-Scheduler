@@ -21,7 +21,7 @@
         <Label Content="Email:" HorizontalAlignment="Left" Margin="218,180,0,0" VerticalAlignment="Top"/>
         <Label Content="Phone number:" HorizontalAlignment="Left" Margin="218,223,0,0" VerticalAlignment="Top"/>
         <Label Content="Password:" HorizontalAlignment="Left" Margin="218,271,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="registerButton" Content="Register" HorizontalAlignment="Left" Margin="266,387,0,0" VerticalAlignment="Top" Width="161" Height="28"/>
+        <Button x:Name="registerButton" Content="Register" HorizontalAlignment="Left" Margin="266,387,0,0" VerticalAlignment="Top" Width="161" Height="28" Click="registerButton_Click"/>
 
     </Grid>
 </Window>

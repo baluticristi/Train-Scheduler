@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Security.Cryptography;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Data.SqlClient;
 
 namespace TrainScheduler
 {
@@ -19,6 +22,7 @@ namespace TrainScheduler
     /// </summary>
     public partial class RegisterPage : Window
     {
+        private TrainEntities context = new TrainEntities();
         public RegisterPage()
         {
             InitializeComponent();
@@ -69,6 +73,112 @@ namespace TrainScheduler
             if (!char.IsDigit((char)e.Text[0]))
             {
                 e.Handled = true;
+            }
+        }
+        private bool verifyEmailUnicity(string email)
+        {
+            var emails = from em in context.Users
+                         select new
+                         { 
+                             em.email
+                         };
+
+            var list = emails.ToList();
+
+            foreach(var item in list)
+            {
+                if (email == item.email)
+                {
+                    MessageBox.Show("A user with this email is allready registered!");
+                    return false;
+                }
+            }
+            return true;
+        }
+        private bool verifyInputData()
+        {
+            if(firstNameRegBox.Text == "" || lastNameRegBox.Text == "" || emailRegBox.Text == "" || phoneNumberRegBox.Text ==  ""
+                || passwordRegBox.Text == ""|| firstNameRegBox.Text == "First Name" || lastNameRegBox.Text == "Last Name" || emailRegBox.Text == "Email" || phoneNumberRegBox.Text == "phone"
+                || passwordRegBox.Text == "password")
+            {
+                MessageBox.Show("All the fields must be filled!");
+                return false;
+            }
+
+            return true;
+        }
+
+        public static byte[] getHashForPasswd(string pass)
+        {
+            byte[] salt = new byte[] { 0x20, 0x15, 0x09, 0x1B, 0x3D, 0x2E, 0x4F, 0x65,
+                           0x7A, 0x89, 0x0C, 0xAB, 0xDE, 0xF1, 0x12, 0x34 };
+
+            Rfc2898DeriveBytes keyGenerator = new Rfc2898DeriveBytes(pass, salt, 10000);
+            byte[] key = keyGenerator.GetBytes(32); // 32-byte key
+
+            return key;
+        }
+
+        private int getRoleId(string role)
+        {
+            var data = context.Roles.Where(item => item.Role_name == role).First();
+           
+            return data.Role_id;
+        }
+        private User getUserObject()
+        {
+            User user = new User();
+
+            user.FirstName = firstNameRegBox.Text;
+            user.LastName = lastNameRegBox.Text;
+            user.phone = phoneNumberRegBox.Text;
+            user.email = emailRegBox.Text;
+            user.password = Convert.ToBase64String(getHashForPasswd(passwordRegBox.Text.ToString()));
+            user.is_verified = false;
+
+            if (studentRegBox.IsChecked == true)
+                user.Role_id = getRoleId("Student");
+            else if (elderRegBox.IsChecked == true)
+                user.Role_id = getRoleId("Elder");
+            else
+                user.Role_id = getRoleId("Adult");
+          
+
+            return user;
+        }
+
+        private Request getRequest(User user)
+        {
+            Request request = new Request();
+
+            request.User_id = user.User_id;
+            request.date = DateTime.Now;
+
+            return request;
+        }
+        private void registerButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (verifyInputData() == true && verifyEmailUnicity(emailRegBox.Text) == true)
+            {
+                User user = getUserObject();
+
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        context.Users.Add(user);
+                        context.Requests.Add(getRequest(user));
+                        context.SaveChanges();
+                        transaction.Commit();
+                    }
+                    catch(Exception ex)
+                    {
+                        transaction.Rollback();
+                        MessageBox.Show("The registration failed!");
+                    }
+                }
+                MessageBox.Show("You have been registrated!");
+
             }
         }
     }

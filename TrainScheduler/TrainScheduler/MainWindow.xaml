@@ -9,7 +9,7 @@
     <Grid>
         <Button x:Name="disconnect" Content="Disconnect" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="23" Width="87" Click="disconnect_Click"/>
         <Button Content="Vezi Toate Trenurile" HorizontalAlignment="Left" Margin="54,108,0,0" VerticalAlignment="Top" Height="41" Width="152" Click="Button_Click"/>
-        <Label x:Name="welcomeLabel" Content="Bine ai venit, username" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <Label x:Name="welcomeLabel" Content="" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
         <Button Content="Cauta Tren" HorizontalAlignment="Left" Margin="54,163,0,0" VerticalAlignment="Top" Height="41" Width="152"/>
         <Button Content="Planuieste o calatorie" HorizontalAlignment="Left" Margin="54,217,0,0" VerticalAlignment="Top" Height="41" Width="152"/>
         <Button Content="Admin Portal&#xD;&#xA;" HorizontalAlignment="Left" Margin="54,361,0,0" VerticalAlignment="Top" Height="41" Width="152"/>

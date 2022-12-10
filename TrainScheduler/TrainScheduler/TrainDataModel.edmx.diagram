@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="dec47dff8c6a402591bffb7a45028e03" Name="Diagram1">
+        <EntityTypeShape EntityType="CiuCiuModel.Line" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CiuCiuModel.LineStation" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CiuCiuModel.Station" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CiuCiuModel.Ticket" Width="1.5" PointX="7.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CiuCiuModel.Train" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CiuCiuModel.User" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CiuCiuModel.Wagon" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
+        <AssociationConnector Association="CiuCiuModel.FK__LineStati__Line___300424B4" ManuallyRouted="false" />
+        <AssociationConnector Association="CiuCiuModel.FK__Train__Line_id__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="CiuCiuModel.FK__LineStati__Stati__30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="CiuCiuModel.FK__Ticket__ArrivalS__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="CiuCiuModel.FK__Ticket__Departur__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="CiuCiuModel.FK__Ticket__User_id__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="CiuCiuModel.FK__Ticket__Wagon_id__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="CiuCiuModel.FK__Wagons__Train_id__36B12243" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CiuCiuModel.Request" Width="1.5" PointX="7.5" PointY="2.625" />
+        <EntityTypeShape EntityType="CiuCiuModel.Role" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="CiuCiuModel.FK__Requests__User_i__3E52440B" />
+        <AssociationConnector Association="CiuCiuModel.FK__Users__Role_id__3B75D760" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

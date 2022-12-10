@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CiuCiuModelStoreContainer" CdmEntityContainer="TrainEntities">
+    <EntitySetMapping Name="Lines">
+      <EntityTypeMapping TypeName="CiuCiuModel.Line">
+        <MappingFragment StoreEntitySet="Line">
+          <ScalarProperty Name="Line_id" ColumnName="Line_id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LineStations">
+      <EntityTypeMapping TypeName="CiuCiuModel.LineStation">
+        <MappingFragment StoreEntitySet="LineStations">
+          <ScalarProperty Name="LineStations_id" ColumnName="LineStations_id" />
+          <ScalarProperty Name="Line_id" ColumnName="Line_id" />
+          <ScalarProperty Name="Station_id" ColumnName="Station_id" />
+          <ScalarProperty Name="Distance" ColumnName="Distance" />
+          <ScalarProperty Name="DepartureTime" ColumnName="DepartureTime" />
+          <ScalarProperty Name="ArrivalTime" ColumnName="ArrivalTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stations">
+      <EntityTypeMapping TypeName="CiuCiuModel.Station">
+        <MappingFragment StoreEntitySet="Station">
+          <ScalarProperty Name="Station_id" ColumnName="Station_id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Desctiption" ColumnName="Desctiption" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tickets">
+      <EntityTypeMapping TypeName="CiuCiuModel.Ticket">
+        <MappingFragment StoreEntitySet="Ticket">
+          <ScalarProperty Name="Ticket_id" ColumnName="Ticket_id" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="Wagon_id" ColumnName="Wagon_id" />
+          <ScalarProperty Name="DayAndTime" ColumnName="DayAndTime" />
+          <ScalarProperty Name="DepartureStation_id" ColumnName="DepartureStation_id" />
+          <ScalarProperty Name="ArrivalStation_id" ColumnName="ArrivalStation_id" />
+          <ScalarProperty Name="NumberOfSeat" ColumnName="NumberOfSeat" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Trains">
+      <EntityTypeMapping TypeName="CiuCiuModel.Train">
+        <MappingFragment StoreEntitySet="Train">
+          <ScalarProperty Name="Train_id" ColumnName="Train_id" />
+          <ScalarProperty Name="Line_id" ColumnName="Line_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="CiuCiuModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="is_verified" ColumnName="is_verified" />
+          <ScalarProperty Name="Role_id" ColumnName="Role_id" />
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="password" ColumnName="password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Wagons">
+      <EntityTypeMapping TypeName="CiuCiuModel.Wagon">
+        <MappingFragment StoreEntitySet="Wagons">
+          <ScalarProperty Name="Wagon_id" ColumnName="Wagon_id" />
+          <ScalarProperty Name="Train_id" ColumnName="Train_id" />
+          <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Requests">
+      <EntityTypeMapping TypeName="CiuCiuModel.Request">
+        <MappingFragment StoreEntitySet="Requests">
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="Request_id" ColumnName="Request_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="CiuCiuModel.Role">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="Role_name" ColumnName="Role_name" />
+          <ScalarProperty Name="Role_id" ColumnName="Role_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
