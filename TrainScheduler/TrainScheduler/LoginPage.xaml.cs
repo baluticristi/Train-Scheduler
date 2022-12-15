@@ -20,6 +20,7 @@ namespace TrainScheduler
     public partial class LoginPage : Window
     {
         private TrainEntities context = new TrainEntities();
+        private User user;
         public LoginPage()
         {
             InitializeComponent();
@@ -53,14 +54,22 @@ namespace TrainScheduler
             }
             return false;
         }
+
+        private User getUser(string email)
+        {
+            var data = context.Users.Where(u => u.email == email).First();
+            return data;
+        }
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
-            var window = new MainWindow();
 
             if (verifiyCredentials() == true)
             {
+                var window = new MainWindow();
+                this.user = getUser(usernameTextBox.Text);
+                window.ShowMainWin(usernameTextBox.Text, this.user);
                 this.Close();
-                window.ShowMainWin(usernameTextBox.Text);
+           
             }
             else
                 MessageBox.Show("Invalid Credentials");

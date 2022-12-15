@@ -19,12 +19,18 @@ namespace TrainScheduler
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    
     public partial class MainWindow : Window
     {
-        public void ShowMainWin(string email)
+        private User user;
+        private TrainEntities context = new TrainEntities();
+        public void ShowMainWin(string email, User user)
         {
             String str = "Bine ai venit, ";
             welcomeLabel.Content = str + email;
+            this.user = user;
+
+            hideAdminButton();
 
             this.Show();
         }
@@ -33,6 +39,18 @@ namespace TrainScheduler
             InitializeComponent();
         }
 
+        public bool isRole(string str_role)
+        {
+            var role = context.Roles.Where(r => r.Role_id == user.Role_id).First();
+            if (role.Role_name == str_role)
+                return true;
+            return false;
+        }
+        public void hideAdminButton()
+        {
+            if (isRole("Administrator") == false)
+                adminPortalBtn.Visibility = Visibility.Hidden;
+        }
         private void disconnect_Click(object sender, RoutedEventArgs e)
         {
             var window = new LoginPage();
@@ -45,6 +63,15 @@ namespace TrainScheduler
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void adminPortalBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var adminWin = new AdminPortalWin(user);
+
+            adminWin.Show();
+
+            this.Close();
         }
     }
 }

@@ -1,0 +1,17 @@
+﻿<Window x:Class="TrainScheduler.AdminPortalWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TrainScheduler"
+        mc:Ignorable="d"
+        Title="AdminPortalWin" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Grid>
+
+        <Button x:Name="backBtn" Content="Back" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Height="23" Width="87" Click="backBtn_Click"/>
+        <Button x:Name="requestBtn" Content="Show Requests" HorizontalAlignment="Center" Margin="0,10,400,0" VerticalAlignment="Top" Height="41" Width="152" Click="requestBtn_Click" />
+        <Button x:Name="addAdminBtn" Content="Add Admin" HorizontalAlignment="Center" Margin="0,10,-400,0" VerticalAlignment="Top" Height="41" Width="152" />
+        <DataGrid x:Name="requestGrid" HorizontalAlignment="Center" VerticalAlignment="Center" Height="230" Width="552" />
+
+    </Grid>
+</Window>

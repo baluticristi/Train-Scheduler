@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TrainScheduler"
         mc:Ignorable="d"
-        Title="RegisterPage" Height="500" Width="600">
+        Title="RegisterPage" Height="500" Width="600" WindowStartupLocation="CenterScreen">
     <Grid>
         <TextBox x:Name="firstNameRegBox" HorizontalAlignment="Left" Margin="310,92,0,0" TextWrapping="Wrap" Text="First Name" VerticalAlignment="Top" Width="120" Opacity="0.7" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
         <TextBox x:Name="lastNameRegBox" HorizontalAlignment="Left" Margin="310,136,0,0" TextWrapping="Wrap" Text="Last Name" VerticalAlignment="Top" Width="120" Opacity="0.7" GotKeyboardFocus="lastNameRegBox_GotKeyboardFocus"/>

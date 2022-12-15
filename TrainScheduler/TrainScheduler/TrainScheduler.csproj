@@ -64,6 +64,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AdminPortalWin.xaml.cs">
+      <DependentUpon>AdminPortalWin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Line.cs">
       <DependentUpon>TrainDataModel.tt</DependentUpon>
     </Compile>
@@ -109,6 +112,10 @@
     <Compile Include="Wagon.cs">
       <DependentUpon>TrainDataModel.tt</DependentUpon>
     </Compile>
+    <Page Include="AdminPortalWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

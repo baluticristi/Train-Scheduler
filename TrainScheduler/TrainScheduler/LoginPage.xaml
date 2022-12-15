@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TrainScheduler"
         mc:Ignorable="d"
-        Title="LoginPage" Height="450" Width="800">
+        Title="LoginPage" Height="450" Width="800"  WindowStartupLocation="CenterScreen">
     <Grid>
         <TextBox x:Name="usernameTextBox" HorizontalAlignment="Center" Margin="0,149,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="204" Height="42" FontSize="14" Cursor="Hand" Opacity="0.7" MaxLines="1" BorderThickness="2,1,2,1" GotKeyboardFocus="usernameTextBox_GotKeyboardFocus"/>
         <TextBlock x:Name="Title" HorizontalAlignment="Center" Margin="0,79,0,0" TextWrapping="Wrap" Text="Please enter your credentials" VerticalAlignment="Top" FontSize="22" FontWeight="Bold" Width="312" Height="55" TextAlignment="Center"/>
