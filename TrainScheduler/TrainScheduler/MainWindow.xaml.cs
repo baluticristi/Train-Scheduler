@@ -69,7 +69,7 @@ namespace TrainScheduler
         {
             var adminWin = new AdminPortalWin(user);
 
-            adminWin.Show();
+            adminWin.ShowAdminPort();
 
             this.Close();
         }
