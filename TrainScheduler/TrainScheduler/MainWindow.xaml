@@ -10,9 +10,13 @@
         <Button x:Name="disconnect" Content="Disconnect" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="23" Width="87" Click="disconnect_Click"/>
         <Button Content="Vezi Toate Trenurile" HorizontalAlignment="Left" Margin="54,108,0,0" VerticalAlignment="Top" Height="41" Width="152" Click="Button_Click"/>
         <Label x:Name="welcomeLabel" Content="" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
-        <Button Content="Cauta Tren" HorizontalAlignment="Left" Margin="54,163,0,0" VerticalAlignment="Top" Height="41" Width="152"/>
+        <Button Content="Cauta Tren" HorizontalAlignment="Left" Margin="54,163,0,0" VerticalAlignment="Top" Height="41" Width="152" Click="Button_Click_1"/>
         <Button Content="Planuieste o calatorie" HorizontalAlignment="Left" Margin="54,217,0,0" VerticalAlignment="Top" Height="41" Width="152"/>
         <Button x:Name="adminPortalBtn" Content="Admin Portal&#xD;&#xA;" HorizontalAlignment="Left" Margin="54,361,0,0" VerticalAlignment="Top" Height="41" Width="152" Click="adminPortalBtn_Click"/>
-
+        <DataGrid x:Name="allTrainGrid" Width="255" Height="250" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,105,280,50" Visibility="Hidden"/>
+        <Label x:Name="trainNumberLabel" Content="Train Number: " HorizontalAlignment="Left" Margin="280,113,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+        <TextBox x:Name="trainNumberTxTBox" HorizontalAlignment="Left" Margin="370,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
+        <DataGrid x:Name="singleTrainGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280" Height="50" Margin="280,160,0,0" Visibility="Hidden"/>
+        <Button x:Name="searchSingleTrain" Content="Search" HorizontalAlignment="Left" Margin="510,115,0,0" VerticalAlignment="Top" Click="Button_Click_2" Visibility="Hidden"/>
     </Grid>
 </Window>

@@ -89,7 +89,7 @@ namespace TrainScheduler
             {
                 if (email == item.email)
                 {
-                    MessageBox.Show("A user with this email is allready registered!");
+                    MessageBox.Show("A user with this email is already registered!");
                     return false;
                 }
             }

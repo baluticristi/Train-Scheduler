@@ -19,7 +19,7 @@ namespace TrainScheduler
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    
+
     public partial class MainWindow : Window
     {
         private User user;
@@ -59,10 +59,35 @@ namespace TrainScheduler
 
             this.Close();
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            hideSingleTrainSearch();
+            showAllTrainGrid();
 
+            var trainData = from t in context.Trains
+                            join ls in context.LineStations
+                            on t.Line_id equals ls.Line_id    //for trains ids
+
+                            join s in context.Stations
+                            on ls.Station_id equals s.Station_id  //for departure stations
+
+                            join ls2 in context.LineStations
+                            on t.Line_id equals ls2.Line_id
+
+                            join s2 in context.Stations
+                            on ls2.Station_id equals s2.Station_id
+
+                            where ls.ArrivalTime == null && ls2.DepartureTime == null
+                            select new
+                            {
+                                t.Train_id,
+                                DepartureStation = s.Name,
+                                ArrivalStation = s2.Name
+                                DepartureTime = ls.DepartureTime
+
+                            };
+
+            allTrainGrid.ItemsSource = trainData.ToList();
         }
 
         private void adminPortalBtn_Click(object sender, RoutedEventArgs e)
@@ -72,6 +97,72 @@ namespace TrainScheduler
             adminWin.ShowAdminPort();
 
             this.Close();
+        }
+
+        private void hideSingleTrainSearch()
+        {
+            trainNumberLabel.Visibility = Visibility.Hidden;
+            trainNumberTxTBox.Visibility = Visibility.Hidden;
+            searchSingleTrain.Visibility = Visibility.Hidden;
+            singleTrainGrid.Visibility = Visibility.Hidden;
+        }
+
+        private void showSingleTrainSearch()
+        {
+            trainNumberLabel.Visibility = Visibility.Visible;
+            trainNumberTxTBox.Visibility = Visibility.Visible;
+            searchSingleTrain.Visibility = Visibility.Visible;
+            singleTrainGrid.Visibility = Visibility.Visible;
+        }
+
+        private void hideAllTrainGrid()
+        {
+            allTrainGrid.Visibility = Visibility.Hidden;
+        }
+
+        private void showAllTrainGrid()
+        {
+            allTrainGrid.Visibility = Visibility.Visible;
+        }
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            hideAllTrainGrid();
+            showSingleTrainSearch();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            int trainNumberInt = Convert.ToInt32(trainNumberTxTBox.Text);
+
+            var trainData = from t in context.Trains
+                            join ls in context.LineStations
+                            on t.Line_id equals ls.Line_id    //for trains ids
+
+                            join s in context.Stations
+                            on ls.Station_id equals s.Station_id  //for departure stations
+
+                            join ls2 in context.LineStations
+                            on t.Line_id equals ls2.Line_id
+
+                            join s2 in context.Stations
+                            on ls2.Station_id equals s2.Station_id
+
+                            where ls.ArrivalTime == null && ls2.DepartureTime == null && t.Train_id == trainNumberInt
+                            select new
+                            {
+                                t.Train_id,
+                                DepartureStation = s.Name,
+                                ArrivalStation = s2.Name
+
+                            };
+
+            if (trainData != null)
+            {
+                singleTrainGrid.Visibility = Visibility.Visible;
+                singleTrainGrid.ItemsSource = trainData.ToList();
+            }
+            else
+                return;
         }
     }
 }

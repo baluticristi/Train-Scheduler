@@ -106,6 +106,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TrainDataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="TripPlanner.xaml.cs">
+      <DependentUpon>TripPlanner.xaml</DependentUpon>
+    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>TrainDataModel.tt</DependentUpon>
     </Compile>
@@ -136,6 +139,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="RegisterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TripPlanner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
