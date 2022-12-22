@@ -5,15 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TrainScheduler"
         mc:Ignorable="d"
-        Title="TripPlanner" Height="450" Width="800">
+        Title="TripPlanner" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="Departure Station: " HorizontalAlignment="Left" Margin="50,20,0,0" VerticalAlignment="Top"/>
         <Label Content="Arrival Station: " HorizontalAlignment="Left" Margin="69,60,0,0" VerticalAlignment="Top"/>
         <Label Content="Select Date: " HorizontalAlignment="Left" Margin="83,100,0,0" VerticalAlignment="Top"/>
         <Label Content="Trains: " HorizontalAlignment="Left" Margin="400,20,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="170,25,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Margin="170,65,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Calendar HorizontalAlignment="Left" Margin="116,140,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="departureCombo" Width="120"  Margin="170,25,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="departureCombo_SelectionChanged" />
+        <ComboBox x:Name="arrivalCombo" Width="120"  Margin="170,65,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <Calendar x:Name="calendar" HorizontalAlignment="Left" Margin="116,140,0,0" VerticalAlignment="Top"/>
         <DataGrid  HorizontalAlignment="Left" Margin="400,50,0,0" VerticalAlignment="Top" Width="350" Height="150"/>
+        <Button x:Name="showTrainsBtn" Content="Show Trains" HorizontalAlignment="Left" Margin="545,224,0,0" VerticalAlignment="Top" Click="showTrainsBtn_Click"/>
     </Grid>
 </Window>

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Security.Permissions;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -59,11 +61,9 @@ namespace TrainScheduler
 
             this.Close();
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            hideSingleTrainSearch();
-            showAllTrainGrid();
 
+        private void ShowAllTrains()
+        {
             var trainData = from t in context.Trains
                             join ls in context.LineStations
                             on t.Line_id equals ls.Line_id    //for trains ids
@@ -82,12 +82,19 @@ namespace TrainScheduler
                             {
                                 t.Train_id,
                                 DepartureStation = s.Name,
-                                ArrivalStation = s2.Name
+                                ArrivalStation = s2.Name,
                                 DepartureTime = ls.DepartureTime
 
                             };
 
             allTrainGrid.ItemsSource = trainData.ToList();
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            hideSingleTrainSearch();
+            showAllTrainGrid();
+
+            this.ShowAllTrains();
         }
 
         private void adminPortalBtn_Click(object sender, RoutedEventArgs e)
@@ -130,8 +137,18 @@ namespace TrainScheduler
             showSingleTrainSearch();
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        static bool isJustDigits(string input)
         {
+            bool isDigit = Regex.IsMatch(input, @"^\d+$");
+            return isDigit;
+        }
+        private void ShowSingleTrain()
+        {
+            if(isJustDigits(trainNumberTxTBox.Text) == false)
+            {
+                MessageBox.Show($"The train with the id: {trainNumberTxTBox.Text} does not exist!");
+                return;
+            }
             int trainNumberInt = Convert.ToInt32(trainNumberTxTBox.Text);
 
             var trainData = from t in context.Trains
@@ -156,13 +173,27 @@ namespace TrainScheduler
 
                             };
 
-            if (trainData != null)
+            if (trainData.ToList().Count() != 0)
             {
                 singleTrainGrid.Visibility = Visibility.Visible;
                 singleTrainGrid.ItemsSource = trainData.ToList();
             }
             else
+            {
+                MessageBox.Show($"The train with the id: {trainNumberTxTBox.Text} does not exist!");
                 return;
+            };
+        }
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            this.ShowSingleTrain();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            var tripWin = new TripPlanner();
+            tripWin.showTripPlanWin(this.user);
+            this.Close();
         }
     }
 }
