@@ -23,8 +23,8 @@ namespace TrainScheduler
         public Nullable<int> ArrivalStation_id { get; set; }
         public Nullable<int> NumberOfSeat { get; set; }
     
-        public virtual LineStation LineStation { get; set; }
-        public virtual LineStation LineStation1 { get; set; }
+        public virtual Station Station { get; set; }
+        public virtual Station Station1 { get; set; }
         public virtual User User { get; set; }
         public virtual Wagon Wagon { get; set; }
     }

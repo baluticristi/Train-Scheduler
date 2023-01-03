@@ -97,30 +97,39 @@ namespace TrainScheduler
             this.Close();
 
         }
-        private void BookTicket(int id, string departure, string arrival,DateTime? time, double? Price) {
+        private void BookTicket(int id, string departure, string arrival,DateTime? time, double? Price) 
+        {
+            if (time == null || time < DateTime.Now)
+            {
+                MessageBox.Show("Incorrect Date!");
+                return;
+            }
+
+            TrainEntities aux_context = new TrainEntities();
             var ticket = new Ticket
             {
-                Ticket_id = 1000,
+                //Ticket_id = 1000,
                 Price = Price,
                 User_id = this.user.User_id,
-                Wagon_id = null,
+                Wagon_id = 2000,
                 DayAndTime = time,
-                DepartureStation_id = Convert.ToInt32((from s in context.Stations
+                DepartureStation_id = Convert.ToInt32((from s in aux_context.Stations
                                                        where s.Name == departure
                                                        select s.Station_id).First()),
-                ArrivalStation_id = Convert.ToInt32((from s in context.Stations
+                ArrivalStation_id = Convert.ToInt32((from s in aux_context.Stations
                                                      where s.Name == arrival
                                                      select s.Station_id).First()),
-                NumberOfSeat = null
+                NumberOfSeat = 1
 
             };
             ////////////////////////fix transaction
-/*            using (var transaction = context.Database.BeginTransaction())
+
+            using (var transaction = aux_context.Database.BeginTransaction())
             {
                 try
                 {
-                    context.Tickets.Add(ticket);
-                    context.SaveChanges();
+                    aux_context.Tickets.Add(ticket);
+                    aux_context.SaveChanges();
                     transaction.Commit();
                 }
                 catch (Exception ex)
@@ -129,8 +138,9 @@ namespace TrainScheduler
                     MessageBox.Show("The ticket failed!");
                 }
             }
-*/            MessageBox.Show($"Ticket bought!!!");
-            disconnect_Click(null,null);
+            MessageBox.Show($"Ticket bought!!!");
+            disconnect_Click(null, null);
+
 
         }
 

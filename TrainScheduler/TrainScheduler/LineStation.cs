@@ -14,13 +14,6 @@ namespace TrainScheduler
     
     public partial class LineStation
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public LineStation()
-        {
-            this.Tickets = new HashSet<Ticket>();
-            this.Tickets1 = new HashSet<Ticket>();
-        }
-    
         public int LineStations_id { get; set; }
         public Nullable<int> Line_id { get; set; }
         public Nullable<int> Station_id { get; set; }
@@ -30,9 +23,5 @@ namespace TrainScheduler
     
         public virtual Line Line { get; set; }
         public virtual Station Station { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ticket> Tickets { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ticket> Tickets1 { get; set; }
     }
 }

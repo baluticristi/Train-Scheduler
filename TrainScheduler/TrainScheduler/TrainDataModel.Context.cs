@@ -28,11 +28,11 @@ namespace TrainScheduler
         public virtual DbSet<Line> Lines { get; set; }
         public virtual DbSet<LineStation> LineStations { get; set; }
         public virtual DbSet<Station> Stations { get; set; }
-        public virtual DbSet<Ticket> Tickets { get; set; }
         public virtual DbSet<Train> Trains { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Wagon> Wagons { get; set; }
         public virtual DbSet<Request> Requests { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<Ticket> Tickets { get; set; }
     }
 }

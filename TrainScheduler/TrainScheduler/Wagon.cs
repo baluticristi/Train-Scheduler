@@ -24,8 +24,8 @@ namespace TrainScheduler
         public Nullable<int> Train_id { get; set; }
         public Nullable<int> Capacity { get; set; }
     
+        public virtual Train Train { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ticket> Tickets { get; set; }
-        public virtual Train Train { get; set; }
     }
 }

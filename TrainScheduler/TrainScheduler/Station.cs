@@ -18,6 +18,8 @@ namespace TrainScheduler
         public Station()
         {
             this.LineStations = new HashSet<LineStation>();
+            this.Tickets = new HashSet<Ticket>();
+            this.Tickets1 = new HashSet<Ticket>();
         }
     
         public int Station_id { get; set; }
@@ -26,5 +28,9 @@ namespace TrainScheduler
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LineStation> LineStations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Ticket> Tickets { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Ticket> Tickets1 { get; set; }
     }
 }
