@@ -26,11 +26,12 @@ namespace TrainScheduler
     {
         private User user;
         private TrainEntities context = new TrainEntities();
-        public void ShowMainWin(string email, User user)
+        public void ShowMainWin(User user)
         {
             String str = "Bine ai venit, ";
-            welcomeLabel.Content = str + email;
             this.user = user;
+            welcomeLabel.Content = str + user.FirstName;
+
 
             hideAdminButton();
 

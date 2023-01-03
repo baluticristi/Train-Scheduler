@@ -7,13 +7,13 @@
         mc:Ignorable="d"
         Title="RegisterPage" Height="500" Width="600" WindowStartupLocation="CenterScreen">
     <Grid>
-        <TextBox x:Name="firstNameRegBox" HorizontalAlignment="Left" Margin="310,92,0,0" TextWrapping="Wrap" Text="First Name" VerticalAlignment="Top" Width="120" Opacity="0.7" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-        <TextBox x:Name="lastNameRegBox" HorizontalAlignment="Left" Margin="310,136,0,0" TextWrapping="Wrap" Text="Last Name" VerticalAlignment="Top" Width="120" Opacity="0.7" GotKeyboardFocus="lastNameRegBox_GotKeyboardFocus"/>
-        <TextBox x:Name="emailRegBox" HorizontalAlignment="Left" Margin="310,184,0,0" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top" Width="120" Opacity="0.7" GotKeyboardFocus="emailRegBox_GotKeyboardFocus" CharacterCasing="Lower"/>
-        <TextBox x:Name="phoneNumberRegBox" HorizontalAlignment="Left" Margin="310,227,0,0" TextWrapping="Wrap" Text="Phone number" VerticalAlignment="Top" Width="120" Opacity="0.7" GotKeyboardFocus="phoneNumberRegBox_GotKeyboardFocus" MaxLength="10" PreviewTextInput="phoneNumberRegBox_PreviewTextInput"/>
-        <TextBox x:Name="passwordRegBox" HorizontalAlignment="Left" Margin="310,275,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="120" Opacity="0.7" GotKeyboardFocus="passwordRegBox_GotKeyboardFocus"/>
-        <CheckBox x:Name="studentRegBox" Content="I am student" HorizontalAlignment="Left" Margin="310,318,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="elderRegBox" Content="I am elder" HorizontalAlignment="Left" Margin="310,351,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked"/>
+        <TextBox x:Name="firstNameRegBox" HorizontalAlignment="Left" TabIndex="0" Margin="310,92,0,0" TextWrapping="Wrap" Text="First Name" VerticalAlignment="Top" Width="120" Opacity="0.7" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+        <TextBox x:Name="lastNameRegBox" HorizontalAlignment="Left" TabIndex="1" Margin="310,136,0,0" TextWrapping="Wrap" Text="Last Name" VerticalAlignment="Top" Width="120" Opacity="0.7" GotKeyboardFocus="lastNameRegBox_GotKeyboardFocus"/>
+        <TextBox x:Name="emailRegBox" HorizontalAlignment="Left" TabIndex="2" Margin="310,184,0,0" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top" Width="120" Opacity="0.7" GotKeyboardFocus="emailRegBox_GotKeyboardFocus" CharacterCasing="Lower"/>
+        <TextBox x:Name="phoneNumberRegBox" HorizontalAlignment="Left" TabIndex="3" Margin="310,227,0,0" TextWrapping="Wrap" Text="Phone number" VerticalAlignment="Top" Width="120" Opacity="0.7" GotKeyboardFocus="phoneNumberRegBox_GotKeyboardFocus" MaxLength="10" PreviewTextInput="phoneNumberRegBox_PreviewTextInput"/>
+        <TextBox x:Name="passwordRegBox" HorizontalAlignment="Left" TabIndex="4" Margin="310,275,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="120" Opacity="0.7" GotKeyboardFocus="passwordRegBox_GotKeyboardFocus"/>
+        <CheckBox x:Name="studentRegBox" Content="I am student" HorizontalAlignment="Left" TabIndex="5" Margin="310,318,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="elderRegBox" Content="I am elder" HorizontalAlignment="Left" TabIndex="6" Margin="310,351,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked"/>
         <Label x:Name="TitleReg" Content="Please write down the following" HorizontalAlignment="Left" Margin="249,47,0,0" VerticalAlignment="Top"/>
         <Button x:Name="disconnect" Content="Back" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="23" Width="87" Click="disconnect_Click"/>
         <Label Content="First Name:" HorizontalAlignment="Left" Margin="218,88,0,0" VerticalAlignment="Top"/>
@@ -21,7 +21,7 @@
         <Label Content="Email:" HorizontalAlignment="Left" Margin="218,180,0,0" VerticalAlignment="Top"/>
         <Label Content="Phone number:" HorizontalAlignment="Left" Margin="218,223,0,0" VerticalAlignment="Top"/>
         <Label Content="Password:" HorizontalAlignment="Left" Margin="218,271,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="registerButton" Content="Register" HorizontalAlignment="Left" Margin="266,387,0,0" VerticalAlignment="Top" Width="161" Height="28" Click="registerButton_Click"/>
+        <Button x:Name="registerButton" Content="Register" HorizontalAlignment="Left" TabIndex="7" Margin="266,387,0,0" VerticalAlignment="Top" Width="161" Height="28" Click="registerButton_Click"/>
 
     </Grid>
 </Window>

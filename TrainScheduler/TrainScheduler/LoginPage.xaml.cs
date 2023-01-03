@@ -60,6 +60,8 @@ namespace TrainScheduler
             var data = context.Users.Where(u => u.email == email).First();
             return data;
         }
+
+
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -67,7 +69,7 @@ namespace TrainScheduler
             {
                 var window = new MainWindow();
                 this.user = getUser(usernameTextBox.Text);
-                window.ShowMainWin(usernameTextBox.Text, this.user);
+                window.ShowMainWin(this.user);
                 this.Close();
            
             }

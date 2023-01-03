@@ -42,7 +42,7 @@ namespace TrainScheduler
         {
             var window = new MainWindow();
 
-            window.ShowMainWin(this.admin.email, this.admin);
+            window.ShowMainWin(this.admin);
 
             window.Show();
 
