@@ -4,24 +4,87 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"        
         xmlns:local="clr-namespace:TrainScheduler"
         mc:Ignorable="d"
-        Title="TripPlanner" Height="450" Width="800" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Label Content="Departure Station: " HorizontalAlignment="Left" Margin="49,59,0,0" VerticalAlignment="Top"/>
-        <Label Content="Arrival Station: " HorizontalAlignment="Left" Margin="68,99,0,0" VerticalAlignment="Top"/>
-        <Label Content="Select Date: " HorizontalAlignment="Left" Margin="82,139,0,0" VerticalAlignment="Top"/>
-        <Label Content="Trains: " HorizontalAlignment="Left" Margin="400,20,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="departureCombo" Width="120"  Margin="169,64,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
-        <ComboBox x:Name="arrivalCombo"  Width="120" SelectedIndex="0" Margin="169,104,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        Title="TripPlanner" Height="630" Width="950"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}" 
+        Background="{x:Null}"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle ="None" 
+>
+    <materialDesign:Card UniformCornerRadius="15" Background="{DynamicResource MaterialDesignPaper}" Margin="25" materialDesign:ShadowAssist.ShadowDepth="Depth4">
+        <materialDesign:DialogHost CloseOnClickAway="True" x:Name="DialogHost">
+            <StackPanel>
+                <StackPanel Margin="16 30 0 6" Orientation="Horizontal" VerticalAlignment="Top">
+
+                    <Button x:Name="disconnect" Content="Back" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="25" Width="100" Click="disconnect_Click"/>
+                    <materialDesign:PopupBox HorizontalAlignment="Right" Margin="730 10 20 0"
+                                         PlacementMode="RightAndAlignTopEdges" StaysOpen="False" Height="25">
+                        <StackPanel Margin="16 30 0 6" Orientation="Vertical" HorizontalAlignment="Right">
+
+                            <StackPanel Margin="16 10 0 6" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock VerticalAlignment="Center" Text="Dark Mode" />
+                                <ToggleButton Cursor="Hand" ToolTip="Enable Dark Mode" Margin="12 0 8 0" x:Name="themeToggle" IsChecked="{Binding isDarkTheme}" Click="toggleTheme" />
+                            </StackPanel>
+                            <Button x:Name="btn_exit" ToolTip="Close Application" Content="Exit Application" Click="exitApp" />
+
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+                </StackPanel>
+
+                <StackPanel Margin="16 30 0 6" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+
+                    <StackPanel Margin="16 0 0 6" Orientation="Vertical" HorizontalAlignment="Left">
+                        
+                        <StackPanel Margin="16 0 0 6" Orientation="Horizontal" HorizontalAlignment="Left">
+                            
+                            <Label Content="Departure Station: " />
+                            <ComboBox x:Name="departureCombo" Width="120" />
+                        </StackPanel>
+                
+                        <StackPanel Margin="16 0 0 6" Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Label Content="Arrival Station: " HorizontalAlignment="Left"/>
+                            <ComboBox x:Name="arrivalCombo"  Width="120" SelectedIndex="0" Margin="20,0,0,0" HorizontalAlignment="Left" />
+                        </StackPanel>
+                        
+                        <StackPanel Margin="16 0 0 6" Orientation="Vertical" HorizontalAlignment="Left">
+                            <Label x:Name="selectDate" Content="Select Date: " HorizontalAlignment="Left" Margin="0,0,0,0" />
+                            <Calendar x:Name="calendar" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                       
+                        </StackPanel>
+
+                    </StackPanel>
+                    <StackPanel Margin="10 0 0 6" Orientation="Vertical" HorizontalAlignment="Left">
+
+                        <StackPanel Margin="16 0 0 6" Orientation="Vertical" HorizontalAlignment="Left">
+                            
+                            <StackPanel Margin="16 0 0 6" Orientation="Vertical" HorizontalAlignment="Left">
+                                <Label Content="Trains: " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+                                <DataGrid x:Name="trainGrid" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="540" Height="300"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="16 30 0 6" Orientation="Horizontal" HorizontalAlignment="Left">
+                                <Label Content="What train would you want to book?" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+                                <TextBox x:Name="trip_id_box" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" InputScope="Default"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="16 0 0 6" Orientation="Vertical" HorizontalAlignment="Left">
+                                <Button x:Name="bookButton" Content="Book" HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Top" Height="28" Width="166" Click="bookButton_Click"/>
+                            </StackPanel>
+
+                        </StackPanel>
+                    </StackPanel>
+
+                </StackPanel>
+
+            <TextBox Text="{Binding ElementName= departureCombo, Path=Text}" TextChanged="departureCombo_SelectionChanged" Visibility="Hidden"/>
+            <TextBox Text="{Binding ElementName= arrivalCombo, Path=Text}" TextChanged="arrivalCombo_SelectionChanged" Visibility="Hidden"/>
         
-        <Calendar x:Name="calendar" HorizontalAlignment="Left" Margin="115,179,0,0" VerticalAlignment="Top"/>
-        <DataGrid x:Name="trainGrid" HorizontalAlignment="Left" Margin="400,50,0,0" VerticalAlignment="Top" Width="350" Height="255"/>
-        <Button x:Name="disconnect" Content="Back" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="23" Width="87" Click="disconnect_Click"/>
-        <Label Content="What train would you want to book?" HorizontalAlignment="Left" Margin="400,329,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="trip_id_box" HorizontalAlignment="Left" Margin="608,337,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" InputScope="Default"/>
-        <Button x:Name="bookButton" Content="Book" HorizontalAlignment="Left" Margin="502,377,0,0" VerticalAlignment="Top" Height="28" Width="166" Click="bookButton_Click"/>
-        <TextBox Text="{Binding ElementName= departureCombo, Path=Text}" TextChanged="departureCombo_SelectionChanged" Visibility="Hidden"/>
-        <TextBox Text="{Binding ElementName= arrivalCombo, Path=Text}" TextChanged="arrivalCombo_SelectionChanged" Visibility="Hidden"/>
-    </Grid>
+            </StackPanel>
+
+        </materialDesign:DialogHost>
+    </materialDesign:Card>
+
 </Window>
