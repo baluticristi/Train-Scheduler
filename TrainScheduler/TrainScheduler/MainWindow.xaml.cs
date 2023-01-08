@@ -32,9 +32,9 @@ namespace TrainScheduler
         private readonly PaletteHelper paletteHelper = new PaletteHelper();
         public void ShowMainWin(User user)
         {
-            String str = "Bine ai venit, ";
+            String str = "Welcome, ";
             this.user = user;
-            welcomeLabel.Content = str + user.FirstName;
+            welcomeLabel.Text = str + user.FirstName;
 
 
             hideAdminButton();
@@ -216,6 +216,12 @@ namespace TrainScheduler
             window.Show();
 
             this.Close();
+        }
+
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+            DragMove();
         }
     }
 }

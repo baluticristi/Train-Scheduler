@@ -27,16 +27,46 @@
                     </StackPanel>
                     
                 </materialDesign:PopupBox>
-                <Button Content="Vezi Toate Trenurile" HorizontalAlignment="Left" Margin="54,108,0,0" VerticalAlignment="Top" Height="41" Width="152" Click="Button_Click"/>
-                <Label x:Name="welcomeLabel" Content="" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
-                <Button Content="Cauta Tren" HorizontalAlignment="Left" Margin="54,163,0,0" VerticalAlignment="Top" Height="41" Width="152" Click="Button_Click_1"/>
-                <Button Content="Planuieste o calatorie" HorizontalAlignment="Left" Margin="54,217,0,0" VerticalAlignment="Top" Height="41" Width="152" Click="Button_Click_3"/>
-                <Button x:Name="adminPortalBtn" Content="Admin Portal&#xD;&#xA;" HorizontalAlignment="Left" Margin="54,361,0,0" VerticalAlignment="Top" Height="41" Width="152" Click="adminPortalBtn_Click"/>
-                <DataGrid x:Name="allTrainGrid" Width="500" Height="300" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,88,34,0" Visibility="Hidden"/>
-                <Label x:Name="trainNumberLabel" Content="Train Number: " HorizontalAlignment="Left" Margin="280,113,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+                <Button Background="LightBlue" Content="Show all Lines" HorizontalAlignment="Left" 
+                        Margin="45,108,0,0" VerticalAlignment="Top" Height="41" 
+                        Width="170" Click="Button_Click"
+                        Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                        materialDesign:ButtonAssist.CornerRadius="10" />
+
+                <TextBlock x:Name="welcomeLabel" Margin="0 22 0 0" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Text="" />
+
+                <Button Background="LightBlue" Content="Search Train" HorizontalAlignment="Left" 
+                        Margin="45,163,0,0" VerticalAlignment="Top" Height="41" 
+                        Width="170" Click="Button_Click_1"
+                        Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                        materialDesign:ButtonAssist.CornerRadius="10"/>
+                
+                <Button Background="LightBlue" Content="Plan a Trip" HorizontalAlignment="Left" 
+                        Margin="45,217,0,0" VerticalAlignment="Top" Height="41" Width="170" 
+                        Click="Button_Click_3" Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                        materialDesign:ButtonAssist.CornerRadius="10" />
+                
+                <Button Background="LightBlue" x:Name="adminPortalBtn" Content="Admin Portal" 
+                        HorizontalAlignment="Left" Margin="45,320,0,0" 
+                        VerticalAlignment="Top" Height="41" Width="170" 
+                        Click="adminPortalBtn_Click"
+                        Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                        materialDesign:ButtonAssist.CornerRadius="10"
+                        />
+
+                <DataGrid x:Name="allTrainGrid" Width="450" Height="200" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,88,34,0" Visibility="Hidden"/>
+
                 <TextBox x:Name="trainNumberTxTBox" HorizontalAlignment="Left" Margin="370,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
-                <DataGrid x:Name="singleTrainGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Width="486" Height="156" Margin="280,160,0,0" Visibility="Hidden"/>
-                <Button x:Name="searchSingleTrain" Content="Search" HorizontalAlignment="Left" Margin="510,115,0,0" VerticalAlignment="Top" Click="Button_Click_2" Visibility="Hidden"/>
+                
+                <DataGrid x:Name="singleTrainGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" Height="156" Margin="280,160,0,0" Visibility="Hidden"/>
+
+                <Label x:Name="trainNumberLabel" Content="Train Number: " HorizontalAlignment="Left" Margin="280,113,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+
+                <Button Background="LightBlue" x:Name="searchSingleTrain" Content="Search" 
+                        HorizontalAlignment="Left" Margin="510,115,0,0" 
+                        VerticalAlignment="Top" Visibility="Hidden"
+                        Click="Button_Click_2" Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                        materialDesign:ButtonAssist.CornerRadius="10"/>
             </Grid>
         </materialDesign:DialogHost>
     </materialDesign:Card>
