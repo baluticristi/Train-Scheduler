@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -26,6 +27,9 @@ namespace TrainScheduler
     {
         private User user;
         private TrainEntities context = new TrainEntities();
+
+        public bool isDarkTheme { get; set; }
+        private readonly PaletteHelper paletteHelper = new PaletteHelper();
         public void ShowMainWin(User user)
         {
             String str = "Bine ai venit, ";
@@ -54,15 +58,6 @@ namespace TrainScheduler
             if (isRole("Administrator") == false)
                 adminPortalBtn.Visibility = Visibility.Hidden;
         }
-        private void disconnect_Click(object sender, RoutedEventArgs e)
-        {
-            var window = new LoginPage();
-
-            window.Show();
-
-            this.Close();
-        }
-
         private void ShowAllTrains()
         {
             var trainData = from t in context.Trains
@@ -194,6 +189,32 @@ namespace TrainScheduler
         {
             var tripWin = new TripPlanner();
             tripWin.showTripPlanWin(this.user);
+            this.Close();
+        }
+
+        private void toggleTheme(object sender, RoutedEventArgs e)
+        {
+            ITheme theme = paletteHelper.GetTheme();
+
+            if (isDarkTheme = theme.GetBaseTheme() == BaseTheme.Dark)
+            {
+                isDarkTheme = false;
+                theme.SetBaseTheme(Theme.Light);
+            }
+            else
+            {
+                isDarkTheme = true;
+                theme.SetBaseTheme(Theme.Dark);
+            }
+            paletteHelper.SetTheme(theme);
+        }
+
+        private void exitApp(object sender, RoutedEventArgs e)
+        {
+            var window = new LoginPage();
+
+            window.Show();
+
             this.Close();
         }
     }

@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Security.Cryptography;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Data.SqlClient;
+using MaterialDesignThemes.Wpf;
 
 namespace TrainScheduler
 {
@@ -23,6 +24,9 @@ namespace TrainScheduler
     public partial class RegisterPage : Window
     {
         private TrainEntities context = new TrainEntities();
+
+        public bool isDarkTheme { get; set; }
+        private readonly PaletteHelper paletteHelper = new PaletteHelper();
         public RegisterPage()
         {
             InitializeComponent();
@@ -32,15 +36,6 @@ namespace TrainScheduler
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
 
-        }
-
-        private void disconnect_Click(object sender, RoutedEventArgs e)
-        {
-            var window = new LoginPage();
-
-            window.Show();
-
-            this.Close();
         }
         
         private void TextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
@@ -65,7 +60,7 @@ namespace TrainScheduler
 
         private void passwordRegBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            passwordRegBox.Text = "";
+            //
         }
 
         private void phoneNumberRegBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -98,8 +93,8 @@ namespace TrainScheduler
         private bool verifyInputData()
         {
             if(firstNameRegBox.Text == "" || lastNameRegBox.Text == "" || emailRegBox.Text == "" || phoneNumberRegBox.Text ==  ""
-                || passwordRegBox.Text == ""|| firstNameRegBox.Text == "First Name" || lastNameRegBox.Text == "Last Name" || emailRegBox.Text == "Email" || phoneNumberRegBox.Text == "phone"
-                || passwordRegBox.Text == "password")
+                || passwordRegBox.ToString() == ""|| firstNameRegBox.Text == "First Name" || lastNameRegBox.Text == "Last Name" || emailRegBox.Text == "Email" || phoneNumberRegBox.Text == "phone"
+                || passwordRegBox.ToString() == "password")
             {
                 MessageBox.Show("All the fields must be filled!");
                 return false;
@@ -133,8 +128,11 @@ namespace TrainScheduler
             user.LastName = lastNameRegBox.Text;
             user.phone = phoneNumberRegBox.Text;
             user.email = emailRegBox.Text;
-            user.password = Convert.ToBase64String(getHashForPasswd(passwordRegBox.Text.ToString()));
+            user.password = Convert.ToBase64String(getHashForPasswd(passwordRegBox.ToString()));
             user.is_verified = false;
+
+            if (studentRegBox.IsChecked == true && elderRegBox.IsChecked == true)
+                return null; 
 
             if (studentRegBox.IsChecked == true)
                 user.Role_id = getRoleId("Student");
@@ -156,7 +154,8 @@ namespace TrainScheduler
 
             return request;
         }
-        private void registerButton_Click(object sender, RoutedEventArgs e)
+
+        private void registerButton_Click_1(object sender, RoutedEventArgs e)
         {
             if (verifyInputData() == true && verifyEmailUnicity(emailRegBox.Text) == true)
             {
@@ -171,15 +170,56 @@ namespace TrainScheduler
                         context.SaveChanges();
                         transaction.Commit();
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         transaction.Rollback();
-                        MessageBox.Show("The registration failed!");
+
+                        if (studentRegBox.IsChecked == true && elderRegBox.IsChecked == true)
+                            MessageBox.Show("You can not be a student and an senior citizen at the same time :(");
+                        else
+                            MessageBox.Show("The registration failed!");
+                        return;
                     }
                 }
+
                 MessageBox.Show("You have been registrated!");
 
+                var log_win = new LoginPage();
+                log_win.Show();
+                this.Close();
+
             }
+        }
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+            DragMove();
+        }
+
+        private void exitApp(object sender, RoutedEventArgs e)
+        {
+            var window = new LoginPage();
+
+            window.Show();
+
+            this.Close();
+        }
+
+        private void toggleTheme(object sender, RoutedEventArgs e)
+        {
+            ITheme theme = paletteHelper.GetTheme();
+
+            if (isDarkTheme = theme.GetBaseTheme() == BaseTheme.Dark)
+            {
+                isDarkTheme = false;
+                theme.SetBaseTheme(Theme.Light);
+            }
+            else
+            {
+                isDarkTheme = true;
+                theme.SetBaseTheme(Theme.Dark);
+            }
+            paletteHelper.SetTheme(theme);
         }
     }
 }

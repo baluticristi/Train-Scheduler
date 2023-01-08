@@ -3,25 +3,61 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:TrainScheduler"
         mc:Ignorable="d"
-        Title="RegisterPage" Height="500" Width="600" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <TextBox x:Name="firstNameRegBox" HorizontalAlignment="Left" TabIndex="0" Margin="310,92,0,0" TextWrapping="Wrap" Text="First Name" VerticalAlignment="Top" Width="120" Opacity="0.7" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
-        <TextBox x:Name="lastNameRegBox" HorizontalAlignment="Left" TabIndex="1" Margin="310,136,0,0" TextWrapping="Wrap" Text="Last Name" VerticalAlignment="Top" Width="120" Opacity="0.7" GotKeyboardFocus="lastNameRegBox_GotKeyboardFocus"/>
-        <TextBox x:Name="emailRegBox" HorizontalAlignment="Left" TabIndex="2" Margin="310,184,0,0" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top" Width="120" Opacity="0.7" GotKeyboardFocus="emailRegBox_GotKeyboardFocus" CharacterCasing="Lower"/>
-        <TextBox x:Name="phoneNumberRegBox" HorizontalAlignment="Left" TabIndex="3" Margin="310,227,0,0" TextWrapping="Wrap" Text="Phone number" VerticalAlignment="Top" Width="120" Opacity="0.7" GotKeyboardFocus="phoneNumberRegBox_GotKeyboardFocus" MaxLength="10" PreviewTextInput="phoneNumberRegBox_PreviewTextInput"/>
-        <TextBox x:Name="passwordRegBox" HorizontalAlignment="Left" TabIndex="4" Margin="310,275,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="120" Opacity="0.7" GotKeyboardFocus="passwordRegBox_GotKeyboardFocus"/>
-        <CheckBox x:Name="studentRegBox" Content="I am student" HorizontalAlignment="Left" TabIndex="5" Margin="310,318,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="elderRegBox" Content="I am elder" HorizontalAlignment="Left" TabIndex="6" Margin="310,351,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked"/>
-        <Label x:Name="TitleReg" Content="Please write down the following" HorizontalAlignment="Left" Margin="249,47,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="disconnect" Content="Back" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="23" Width="87" Click="disconnect_Click"/>
-        <Label Content="First Name:" HorizontalAlignment="Left" Margin="218,88,0,0" VerticalAlignment="Top"/>
-        <Label Content="Last Name:" HorizontalAlignment="Left" Margin="218,132,0,0" VerticalAlignment="Top"/>
-        <Label Content="Email:" HorizontalAlignment="Left" Margin="218,180,0,0" VerticalAlignment="Top"/>
-        <Label Content="Phone number:" HorizontalAlignment="Left" Margin="218,223,0,0" VerticalAlignment="Top"/>
-        <Label Content="Password:" HorizontalAlignment="Left" Margin="218,271,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="registerButton" Content="Register" HorizontalAlignment="Left" TabIndex="7" Margin="266,387,0,0" VerticalAlignment="Top" Width="161" Height="28" Click="registerButton_Click"/>
+        Title="RegisterPage" Height="750" Width="450" WindowStartupLocation="CenterScreen"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}" 
+        Background="{x:Null}"
+        AllowsTransparency="True"
+        WindowStyle ="None"
+        >
 
-    </Grid>
+    <materialDesign:Card UniformCornerRadius="15" Background="{DynamicResource MaterialDesignPaper}" Margin="25" materialDesign:ShadowAssist.ShadowDepth="Depth4">
+        <materialDesign:DialogHost CloseOnClickAway="True" x:Name="DialogHost">
+            <StackPanel>
+                <materialDesign:PopupBox HorizontalAlignment="Right" Margin="0 20 20 0"
+                                         PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Height="25">
+                    <StackPanel>
+
+                        <StackPanel Margin="16 10 0 6" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock VerticalAlignment="Center" Text="Dark Mode" />
+                            <ToggleButton Cursor="Hand" ToolTip="Enable Dark Mode" Margin="12 0 8 0" x:Name="themeToggle" IsChecked="{Binding isDarkTheme}" Click="toggleTheme" />
+                        </StackPanel>
+                        <Button x:Name="btn_exit" ToolTip="Close Application" Content="Exit" Click="exitApp" />
+
+
+                    </StackPanel>
+                </materialDesign:PopupBox>
+
+                <TextBlock Margin="0 25 0 5" HorizontalAlignment="Center" FontSize="28" FontWeight="Bold" Text="Register Page" />
+
+                <TextBox Margin="0 50 0 0" x:Name="firstNameRegBox" Width="300" FontSize="13" materialDesign:HintAssist.Hint = "First Name" BorderThickness="2"
+                         BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignOutlinedTextBox}" Height="50" />
+
+                <TextBox Margin="0 10 0 0"  x:Name="lastNameRegBox"  Width="300" FontSize="13" materialDesign:HintAssist.Hint = "Last Name" BorderThickness="2"
+                         BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignOutlinedTextBox}" Height="50" />
+
+                <TextBox Margin="0 10 0 0" x:Name="emailRegBox"  Width="300" FontSize="13" materialDesign:HintAssist.Hint = "Email" BorderThickness="2"
+                         BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignOutlinedTextBox}" Height="50" GotKeyboardFocus="emailRegBox_GotKeyboardFocus" CharacterCasing="Lower" />
+
+                <TextBox Margin="0 10 0 0" x:Name="phoneNumberRegBox"  Width="300" FontSize="13" materialDesign:HintAssist.Hint = "Phone Number" BorderThickness="2"
+                         BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignOutlinedTextBox}" Height="50" GotKeyboardFocus="phoneNumberRegBox_GotKeyboardFocus" MaxLength="10" PreviewTextInput="phoneNumberRegBox_PreviewTextInput" />
+
+                <PasswordBox Margin="0 20 0 0" x:Name="passwordRegBox" Width="300" FontSize="13" materialDesign:HintAssist.Hint="Enter password" BorderThickness="2"
+                             BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignOutlinedPasswordBox}"  Height="50" GotKeyboardFocus="passwordRegBox_GotKeyboardFocus"/>
+
+                <CheckBox x:Name="studentRegBox" Content="I am student" HorizontalAlignment="Left" Margin="140,20,0,0" 
+                          FontSize="13" Style="{StaticResource MaterialDesignAccentCheckBox}"/>
+
+                <CheckBox x:Name="elderRegBox" Content="I am senior citizen" HorizontalAlignment="Left" Margin="140,20,0,0" 
+                          FontSize="13" Style="{StaticResource MaterialDesignAccentCheckBox}"/>
+
+                <Button Background="LightBlue" Margin="0 50 0 0" x:Name="registerButton"  Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0" 
+                        Height="50" Width="300" materialDesign:ButtonAssist.CornerRadius="10" FontSize="18" Content="REGISTER" Click="registerButton_Click_1"/>
+
+            </StackPanel>
+        </materialDesign:DialogHost>
+    </materialDesign:Card>
+
 </Window>

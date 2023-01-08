@@ -102,7 +102,7 @@ namespace TrainScheduler
             DragMove();
         }
 
-        private void loginButton_Click(object sender, RoutedEventArgs e)
+        private void log_in()
         {
             if (verifiyCredentials() == true)
             {
@@ -114,8 +114,21 @@ namespace TrainScheduler
             }
             else
                 MessageBox.Show("Invalid Credentials");
+        }
+
+        private void loginButton_Click(object sender, RoutedEventArgs e)
+        {
+            log_in();
 
             //this.Close();
+        }
+
+        private void passwordBox_keyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                log_in();
+            }
         }
     }
 }

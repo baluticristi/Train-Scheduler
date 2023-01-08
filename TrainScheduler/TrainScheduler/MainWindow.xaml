@@ -3,20 +3,41 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:TrainScheduler"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"  WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Button x:Name="disconnect" Content="Disconnect" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="23" Width="87" Click="disconnect_Click"/>
-        <Button Content="Vezi Toate Trenurile" HorizontalAlignment="Left" Margin="54,108,0,0" VerticalAlignment="Top" Height="41" Width="152" Click="Button_Click"/>
-        <Label x:Name="welcomeLabel" Content="" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
-        <Button Content="Cauta Tren" HorizontalAlignment="Left" Margin="54,163,0,0" VerticalAlignment="Top" Height="41" Width="152" Click="Button_Click_1"/>
-        <Button Content="Planuieste o calatorie" HorizontalAlignment="Left" Margin="54,217,0,0" VerticalAlignment="Top" Height="41" Width="152" Click="Button_Click_3"/>
-        <Button x:Name="adminPortalBtn" Content="Admin Portal&#xD;&#xA;" HorizontalAlignment="Left" Margin="54,361,0,0" VerticalAlignment="Top" Height="41" Width="152" Click="adminPortalBtn_Click"/>
-        <DataGrid x:Name="allTrainGrid" Width="500" Height="300" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,88,34,0" Visibility="Hidden"/>
-        <Label x:Name="trainNumberLabel" Content="Train Number: " HorizontalAlignment="Left" Margin="280,113,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
-        <TextBox x:Name="trainNumberTxTBox" HorizontalAlignment="Left" Margin="370,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
-        <DataGrid x:Name="singleTrainGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Width="486" Height="156" Margin="280,160,0,0" Visibility="Hidden"/>
-        <Button x:Name="searchSingleTrain" Content="Search" HorizontalAlignment="Left" Margin="510,115,0,0" VerticalAlignment="Top" Click="Button_Click_2" Visibility="Hidden"/>
-    </Grid>
+        Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}" 
+        Background="{x:Null}"
+        AllowsTransparency="True"
+        WindowStyle ="None"
+        >
+    <materialDesign:Card UniformCornerRadius="15" Background="{DynamicResource MaterialDesignPaper}" Margin="25" materialDesign:ShadowAssist.ShadowDepth="Depth4">
+        <materialDesign:DialogHost CloseOnClickAway="True" x:Name="DialogHost">
+            <Grid>
+                <materialDesign:PopupBox HorizontalAlignment="Right" Margin="0 -350 20 0"
+                                         PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Height="25">
+                    <StackPanel>
+                        <StackPanel Margin="16 10 0 6" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock VerticalAlignment="Center" Text="Dark Mode" />
+                            <ToggleButton Cursor="Hand" ToolTip="Enable Dark Mode" Margin="12 0 8 0" x:Name="themeToggle" IsChecked="{Binding isDarkTheme}" Click="toggleTheme" />
+                        </StackPanel>
+                        <Button x:Name="btn_exit" ToolTip="Exit" Content="Exit" Click="exitApp" />
+
+                    </StackPanel>
+                    
+                </materialDesign:PopupBox>
+                <Button Content="Vezi Toate Trenurile" HorizontalAlignment="Left" Margin="54,108,0,0" VerticalAlignment="Top" Height="41" Width="152" Click="Button_Click"/>
+                <Label x:Name="welcomeLabel" Content="" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+                <Button Content="Cauta Tren" HorizontalAlignment="Left" Margin="54,163,0,0" VerticalAlignment="Top" Height="41" Width="152" Click="Button_Click_1"/>
+                <Button Content="Planuieste o calatorie" HorizontalAlignment="Left" Margin="54,217,0,0" VerticalAlignment="Top" Height="41" Width="152" Click="Button_Click_3"/>
+                <Button x:Name="adminPortalBtn" Content="Admin Portal&#xD;&#xA;" HorizontalAlignment="Left" Margin="54,361,0,0" VerticalAlignment="Top" Height="41" Width="152" Click="adminPortalBtn_Click"/>
+                <DataGrid x:Name="allTrainGrid" Width="500" Height="300" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,88,34,0" Visibility="Hidden"/>
+                <Label x:Name="trainNumberLabel" Content="Train Number: " HorizontalAlignment="Left" Margin="280,113,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+                <TextBox x:Name="trainNumberTxTBox" HorizontalAlignment="Left" Margin="370,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
+                <DataGrid x:Name="singleTrainGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Width="486" Height="156" Margin="280,160,0,0" Visibility="Hidden"/>
+                <Button x:Name="searchSingleTrain" Content="Search" HorizontalAlignment="Left" Margin="510,115,0,0" VerticalAlignment="Top" Click="Button_Click_2" Visibility="Hidden"/>
+            </Grid>
+        </materialDesign:DialogHost>
+    </materialDesign:Card>
 </Window>
