@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -21,28 +22,33 @@ namespace TrainScheduler
     /// </summary>
     public partial class AdminPortalWin : Window
     {
-        private User admin;
+        private User user;
         private TrainEntities context = new TrainEntities();
+        public bool isDarkTheme { get; set; }
+        private readonly PaletteHelper paletteHelper = new PaletteHelper();
+
         public AdminPortalWin(User admin)
         {
-            this.admin = admin;
+            this.user = admin;
             InitializeComponent();
         }
 
        public void ShowAdminPort()
        {
+
             this.acceptBtn.Visibility = Visibility.Hidden;
             this.declineBtn.Visibility = Visibility.Hidden;
             this.requestTxTBoX.Visibility = Visibility.Hidden;
             this.reqLabel.Visibility = Visibility.Hidden; 
 
             this.Show();
+            refreshRequests();
        }
         private void backBtn_Click(object sender, RoutedEventArgs e)
         {
             var window = new MainWindow();
 
-            window.ShowMainWin(this.admin);
+            window.ShowMainWin(this.user);
 
             window.Show();
 
@@ -50,7 +56,7 @@ namespace TrainScheduler
 
         }
 
-        private void requestBtn_Click(object sender, RoutedEventArgs e)
+        private void refreshRequests()
         {
 
 
@@ -107,6 +113,7 @@ namespace TrainScheduler
             Request req = context.Requests.Where(r => r.Request_id == req_id).First();
             context.Requests.Remove(req);
             context.SaveChanges();
+
         }
         private void acceptBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -121,7 +128,46 @@ namespace TrainScheduler
             context.SaveChanges();
             deleteRequest(id);
             MessageBox.Show("User was accepted!");
+            refreshRequests();
+
         }
+        private void disconnect_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new MainWindow();
+
+            window.ShowMainWin(this.user);
+
+            this.Close();
+
+        }
+        private void exitApp(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+        private void toggleTheme(object sender, RoutedEventArgs e)
+        {
+            ITheme theme = paletteHelper.GetTheme();
+
+            if (isDarkTheme = theme.GetBaseTheme() == BaseTheme.Dark)
+            {
+                isDarkTheme = false;
+                theme.SetBaseTheme(Theme.Light);
+            }
+            else
+            {
+                isDarkTheme = true;
+                theme.SetBaseTheme(Theme.Dark);
+            }
+            paletteHelper.SetTheme(theme);
+        }
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+            DragMove();
+        }
+
+
+
 
         private void declineBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -138,6 +184,8 @@ namespace TrainScheduler
             context.SaveChanges();
             deleteRequest(id);
             MessageBox.Show("User was not accepted!");
+            refreshRequests();
+
         }
     }
 }

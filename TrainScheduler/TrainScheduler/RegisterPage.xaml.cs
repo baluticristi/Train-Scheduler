@@ -175,7 +175,7 @@ namespace TrainScheduler
                         transaction.Rollback();
 
                         if (studentRegBox.IsChecked == true && elderRegBox.IsChecked == true)
-                            MessageBox.Show("You can not be a student and an senior citizen at the same time :(");
+                            MessageBox.Show("You can not be a student and a senior citizen at the same time :(");
                         else
                             MessageBox.Show("The registration failed!");
                         return;

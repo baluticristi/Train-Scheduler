@@ -111,6 +111,13 @@ namespace TrainScheduler
             this.Show();
             fillDepartureComboBox();
         }
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+            DragMove();
+        }
+
+
 
 
         private void disconnect_Click(object sender, RoutedEventArgs e)

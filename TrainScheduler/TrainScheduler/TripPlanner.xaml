@@ -17,10 +17,12 @@
     <materialDesign:Card UniformCornerRadius="15" Background="{DynamicResource MaterialDesignPaper}" Margin="25" materialDesign:ShadowAssist.ShadowDepth="Depth4">
         <materialDesign:DialogHost CloseOnClickAway="True" x:Name="DialogHost">
             <StackPanel>
-                <StackPanel Margin="16 30 0 6" Orientation="Horizontal" VerticalAlignment="Top">
+                <StackPanel Margin="16 10 0 6" Orientation="Horizontal" VerticalAlignment="Top">
 
-                    <Button x:Name="disconnect" Content="Back" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="25" Width="100" Click="disconnect_Click"/>
-                    <materialDesign:PopupBox HorizontalAlignment="Right" Margin="730 10 20 0"
+                    <Button x:Name="disconnect" Background="LightBlue" Content="Back" HorizontalAlignment="Left" Margin="10,10,0,10" Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                            materialDesign:ButtonAssist.CornerRadius="10" FontSize="16" VerticalAlignment="Top" Height="35" Width="100" Click="disconnect_Click"/>
+
+                    <materialDesign:PopupBox HorizontalAlignment="Right" Margin="730 10 20 10"
                                          PlacementMode="RightAndAlignTopEdges" StaysOpen="False" Height="25">
                         <StackPanel Margin="16 30 0 6" Orientation="Vertical" HorizontalAlignment="Right">
 
@@ -71,7 +73,8 @@
                             </StackPanel>
 
                             <StackPanel Margin="16 0 0 6" Orientation="Vertical" HorizontalAlignment="Left">
-                                <Button x:Name="bookButton" Content="Book" HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Top" Height="28" Width="166" Click="bookButton_Click"/>
+                                <Button x:Name="bookButton" Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0" Background="LightBlue" 
+                                        Content="Book" Width="150" materialDesign:ButtonAssist.CornerRadius="5" FontSize="16" Margin="205,0,0,0"  Click="bookButton_Click"/>
                             </StackPanel>
 
                         </StackPanel>
