@@ -118,8 +118,6 @@ namespace TrainScheduler
         }
 
 
-
-
         private void disconnect_Click(object sender, RoutedEventArgs e)
         {
             var window = new MainWindow();
@@ -154,7 +152,7 @@ namespace TrainScheduler
                 NumberOfSeat = 1
 
             };
-            ////////////////////////fix transaction
+            ////////////////////////fix transaction/////////////////////////////////////////////////////////////////////
 
             using (var transaction = aux_context.Database.BeginTransaction())
             {
@@ -196,10 +194,11 @@ namespace TrainScheduler
                         on ls2.Station_id equals s2.Station_id
 
                         where ls2.ArrivalTime != null && ls.DepartureTime != null &&
-                            ls.Distance < ls2.Distance && ls.Line_id == ls2.Line_id && s.Name == departure && s2.Name == arrival
+                        ls.Distance < ls2.Distance && ls.Line_id == ls2.Line_id && s.Name == departure && s2.Name == arrival
                         select new
                         {
-                            ID = ls.LineStations_id,
+                            //ID = ls.LineStations_id,
+                            ID = t.Train_id,
                             Departure = s.Name,
                             Arrival = s2.Name,
                             Time = ls.DepartureTime,
@@ -217,7 +216,7 @@ namespace TrainScheduler
         }
 
 
-            private void arrivalCombo_TargetUpdated(object sender, DataTransferEventArgs e)
+        private void arrivalCombo_TargetUpdated(object sender, DataTransferEventArgs e)
         {
             fillArrivalComboBox();
 
@@ -253,7 +252,8 @@ namespace TrainScheduler
                                  ls.Distance < ls2.Distance && ls.Line_id == ls2.Line_id && s.Name == departure && s2.Name == arrival
                                 select new
                                 {
-                                    ID = ls.LineStations_id,
+                                    //ID = ls.LineStations_id,
+                                    ID = t.Train_id,
                                     Departure = s.Name,
                                     Arrival = s2.Name,
                                     Time = ls.DepartureTime,

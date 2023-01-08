@@ -223,5 +223,12 @@ namespace TrainScheduler
             base.OnMouseLeftButtonDown(e);
             DragMove();
         }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            var bookingHistoryWindow = new BookingHistory();
+            bookingHistoryWindow.ShowBookingHistoryWin(this.user);
+            this.Close();
+        }
     }
 }
