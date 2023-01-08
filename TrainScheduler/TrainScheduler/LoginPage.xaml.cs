@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,9 @@ namespace TrainScheduler
     {
         private TrainEntities context = new TrainEntities();
         private User user;
+
+        public bool isDarkTheme { get; set; }
+        private readonly PaletteHelper paletteHelper = new PaletteHelper();
         public LoginPage()
         {
             InitializeComponent();
@@ -62,30 +66,56 @@ namespace TrainScheduler
         }
 
 
-        private void loginButton_Click(object sender, RoutedEventArgs e)
-        {
-
-            if (verifiyCredentials() == true)
-            {
-                var window = new MainWindow();
-                this.user = getUser(usernameTextBox.Text);
-                window.ShowMainWin(this.user);
-                this.Close();
-           
-            }
-            else
-                MessageBox.Show("Invalid Credentials");
-
-            //this.Close();
-        }
-
-        private void registerButton_Click(object sender, RoutedEventArgs e)
+        private void registerButton_Click_1(object sender, RoutedEventArgs e)
         {
             var window = new RegisterPage();
 
             window.Show();
 
             this.Close();
+        }
+
+        private void exitApp(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void toggleTheme(object sender, RoutedEventArgs e)
+        {
+            ITheme theme = paletteHelper.GetTheme();
+
+            if (isDarkTheme = theme.GetBaseTheme() == BaseTheme.Dark)
+            {
+                isDarkTheme = false;
+                theme.SetBaseTheme(Theme.Light);
+            }
+            else
+            {
+                isDarkTheme = true;
+                theme.SetBaseTheme(Theme.Dark);
+            }
+            paletteHelper.SetTheme(theme);
+        }
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+            DragMove();
+        }
+
+        private void loginButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (verifiyCredentials() == true)
+            {
+                var window = new MainWindow();
+                this.user = getUser(usernameTextBox.Text);
+                window.ShowMainWin(this.user);
+                this.Close();
+
+            }
+            else
+                MessageBox.Show("Invalid Credentials");
+
+            //this.Close();
         }
     }
 }

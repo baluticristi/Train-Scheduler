@@ -3,15 +3,49 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:TrainScheduler"
         mc:Ignorable="d"
-        Title="LoginPage" Height="450" Width="800"  WindowStartupLocation="CenterScreen">
-    <Grid>
-        <TextBox x:Name="usernameTextBox" HorizontalAlignment="Center" TabIndex="0" Margin="0,149,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="204" Height="42" FontSize="14" Cursor="Hand" Opacity="0.7" MaxLines="1" BorderThickness="2,1,2,1" GotKeyboardFocus="usernameTextBox_GotKeyboardFocus"/>
-        <TextBlock x:Name="Title" HorizontalAlignment="Center" Margin="0,79,0,0" TextWrapping="Wrap" Text="Please enter your credentials" VerticalAlignment="Top" FontSize="22" FontWeight="Bold" Width="312" Height="55" TextAlignment="Center"/>
-        <Button x:Name="loginButton" Content="Login" HorizontalAlignment="Left" Margin="298,332,0,0" VerticalAlignment="Top" Height="36" Width="78" IsCancel="True" Click="loginButton_Click"/>
-        <Button x:Name="registerButton" Content="Register" HorizontalAlignment="Left" Margin="424,332,0,0" VerticalAlignment="Top" Height="36" Width="78" Click="registerButton_Click"/>
-        <PasswordBox x:Name="passwordTextBox" HorizontalAlignment="Center" TabIndex="1" Margin="0,217,0,0" VerticalAlignment="Top" Width="204" Height="42" Opacity="0.7" Cursor="Hand" MaxLength="10" Password="aaaaaaaaa" BorderThickness="2,1,2,1" GotKeyboardFocus="passwordTextBox_GotKeyboardFocus"/>
+        Title="LoginPage" Height="760" Width="450"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}" 
+        Background="{x:Null}"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle ="None" 
+        >
+    <materialDesign:Card UniformCornerRadius="15" Background="{DynamicResource MaterialDesignPaper}" Margin="25" materialDesign:ShadowAssist.ShadowDepth="Depth4">
+        <materialDesign:DialogHost CloseOnClickAway="True" x:Name="DialogHost">
+            <StackPanel>
+                <materialDesign:PopupBox HorizontalAlignment="Right" Margin="0 20 20 0"
+                                         PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Height="25">
+                    <StackPanel>
 
-    </Grid>
+                        <StackPanel Margin="16 10 0 6" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock VerticalAlignment="Center" Text="Dark Mode" />
+                            <ToggleButton Cursor="Hand" ToolTip="Enable Dark Mode" Margin="12 0 8 0" x:Name="themeToggle" IsChecked="{Binding isDarkTheme}" Click="toggleTheme" />
+                        </StackPanel>
+                        <Button x:Name="btn_exit" ToolTip="Close Application" Content="Exit Application" Click="exitApp" />
+
+
+                    </StackPanel>
+                </materialDesign:PopupBox>
+                <Image Margin="0 60 0 5" Source="trenPicture.png" Height="100" />
+                <TextBlock Margin="0 25 0 5" HorizontalAlignment="Center" FontSize="28" FontWeight="Bold" Text="Welcome Back!" />
+                <TextBlock FontSize="17" FontWeight="SemiBold" HorizontalAlignment="Center" Text ="Log in to your existing account!" />
+                <TextBox Margin="0 50 0 0" x:Name="usernameTextBox" Width="300" FontSize="18" materialDesign:HintAssist.Hint = "Enter Username" BorderThickness="2"
+                         BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+
+                <PasswordBox Margin="0 20 0 0" x:Name="passwordTextBox" Width="300" FontSize="18" materialDesign:HintAssist.Hint="Enter password" BorderThickness="2"
+                             BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignOutlinedPasswordBox}" />
+
+                <Button Background="LightBlue" Margin="0 20 0 0" x:Name="loginButton" Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0" 
+                        Height="53" Width="300" materialDesign:ButtonAssist.CornerRadius="10" FontSize="18" Content="LOG IN" Click="loginButton_Click"/>
+
+                <Button Background="LightBlue" Margin="0 20 0 0" x:Name="registerButton" Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                        Height="53" Width="300" materialDesign:ButtonAssist.CornerRadius="10" FontSize="18" Content="Create Account" Click="registerButton_Click_1" />
+
+            </StackPanel>
+        </materialDesign:DialogHost>
+    </materialDesign:Card>
+
 </Window>
