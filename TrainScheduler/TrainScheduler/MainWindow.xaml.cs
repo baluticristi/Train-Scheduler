@@ -230,5 +230,11 @@ namespace TrainScheduler
             bookingHistoryWindow.ShowBookingHistoryWin(this.user);
             this.Close();
         }
+
+        private void trainNumberTxTBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter) 
+                this.ShowSingleTrain();
+        }
     }
 }

@@ -63,7 +63,7 @@
 
                 <DataGrid x:Name="allTrainGrid" Width="450" Height="200" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,88,34,0" Visibility="Hidden"/>
 
-                <TextBox x:Name="trainNumberTxTBox" HorizontalAlignment="Left" Margin="370,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
+                <TextBox x:Name="trainNumberTxTBox" HorizontalAlignment="Left" Margin="370,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden" KeyDown="trainNumberTxTBox_KeyDown"/>
                 
                 <DataGrid x:Name="singleTrainGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" Height="156" Margin="280,160,0,0" Visibility="Hidden"/>
 
