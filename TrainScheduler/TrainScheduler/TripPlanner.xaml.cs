@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
+using System.Runtime.Serialization.Formatters;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +13,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 
 namespace TrainScheduler
@@ -127,6 +129,74 @@ namespace TrainScheduler
             this.Close();
 
         }
+        KeyValuePair<int, int> GetWagon(int id, string departure, string arrival, DateTime? time)
+
+        {
+            int WagNum;
+            //get the wagons for the train on the route
+            var wagons = from t in context.Trains
+                            join ls in context.LineStations
+                            on t.Line_id equals ls.Line_id    //for trains ids
+
+                            join s in context.Stations
+                            on ls.Station_id equals s.Station_id  //for departure stations
+
+                            join ls2 in context.LineStations
+                            on t.Line_id equals ls2.Line_id
+
+                            join s2 in context.Stations
+                            on ls2.Station_id equals s2.Station_id
+
+                            join w in context.Wagons
+                            on t.Train_id equals w.Train_id
+
+                            where ls2.ArrivalTime != null && ls.DepartureTime != null &&
+                            ls.Distance < ls2.Distance && ls.Line_id == ls2.Line_id && s.Name == departure && s2.Name == arrival &&
+                            t.Train_id == id
+                            select new
+                            {
+                                WagonNumber = w.Wagon_id,
+                                Capacity=w.Capacity
+                            };
+            //cross check them with the tickets already bought
+            var WagonsBooked = from tck in context.Tickets
+                               join t in context.Wagons
+                               on tck.Wagon_id equals t.Wagon_id
+
+                               where t.Train_id == id
+                               select new
+                               {
+                                   WagonID = tck.Wagon_id,
+                                   ResDate = tck.DayAndTime
+                               };
+
+            Dictionary<int, int> wags = new Dictionary<int,int>();
+            foreach (var w in wagons)
+            {
+                wags.Add(w.WagonNumber, Convert.ToInt32(w.Capacity));
+            }
+
+            foreach (var b in WagonsBooked)
+            {
+                for (int i = 0; i < wags.Count; i++)
+                {
+                    if (wags.ElementAt(i).Key == b.WagonID && b.ResDate==time)
+                    {
+                        wags[wags.ElementAt(i).Key] = wags[wags.ElementAt(i).Key]-1;
+                    }
+                }
+            }
+
+            foreach (int key in wags.Keys)
+            {
+                if (wags[key] > 0)
+                {
+                    
+                    return  new KeyValuePair<int, int>(Convert.ToInt32(key),wags[key]);
+                }
+            }
+            return new KeyValuePair<int, int> (0,0);
+        }
         private void BookTicket(int id, string departure, string arrival,DateTime? time, double? Price) 
         {
             if (time == null || time < DateTime.Now)
@@ -134,14 +204,27 @@ namespace TrainScheduler
                 MessageBox.Show("Incorrect Date!");
                 return;
             }
-
+            if (user.Role.Role_name == "Student") { Price = Price / 2; }
+            else if (user.Role.Role_name == "Elder") { Price = Price / 3; }
+            else if (user.Role.Role_name == "Administator") { Price = 0; }
+            else if (user.Role.Role_name == "Thief")
+            {
+                MessageBox.Show($"Your account was not verified and flagged accordingly. please refer to an administrator");
+                disconnect_Click(null, null);
+            }
+            KeyValuePair<int, int> seat= GetWagon(id, departure, arrival, time);
+            if (seat.Key == 0)
+            {
+                MessageBox.Show($"There are no more seats available in this train");
+                disconnect_Click(null, null);
+            }
+            return;
             TrainEntities aux_context = new TrainEntities();
             var ticket = new Ticket
             {
-                //Ticket_id = 1000,
                 Price = Price,
                 User_id = this.user.User_id,
-                Wagon_id = 2000,
+                Wagon_id = seat.Key,
                 DayAndTime = time,
                 DepartureStation_id = Convert.ToInt32((from s in aux_context.Stations
                                                        where s.Name == departure
@@ -149,10 +232,9 @@ namespace TrainScheduler
                 ArrivalStation_id = Convert.ToInt32((from s in aux_context.Stations
                                                      where s.Name == arrival
                                                      select s.Station_id).First()),
-                NumberOfSeat = 1
+                NumberOfSeat = seat.Value
 
             };
-            ////////////////////////fix transaction/////////////////////////////////////////////////////////////////////
 
             using (var transaction = aux_context.Database.BeginTransaction())
             {
@@ -203,7 +285,7 @@ namespace TrainScheduler
                             Arrival = s2.Name,
                             Time = ls.DepartureTime,
                             Distance = ls2.Distance,
-                            Price = ls2.Distance * 1.7
+                            Price = ls2.Distance * 0.3
                         };
 
             foreach (var t in trainData)
@@ -258,7 +340,7 @@ namespace TrainScheduler
                                     Arrival = s2.Name,
                                     Time = ls.DepartureTime,
                                     Distance = ls2.Distance,
-                                    Price = ls2.Distance * 1.7
+                                    Price = ls2.Distance * 0.3
                                 };
 
 
