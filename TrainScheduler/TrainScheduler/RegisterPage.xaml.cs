@@ -128,7 +128,7 @@ namespace TrainScheduler
             user.LastName = lastNameRegBox.Text;
             user.phone = phoneNumberRegBox.Text;
             user.email = emailRegBox.Text;
-            user.password = Convert.ToBase64String(getHashForPasswd(passwordRegBox.ToString()));
+            user.password = Convert.ToBase64String(getHashForPasswd(passwordRegBox.Password));
             user.is_verified = false;
 
             if (studentRegBox.IsChecked == true && elderRegBox.IsChecked == true)
