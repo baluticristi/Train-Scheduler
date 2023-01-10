@@ -199,6 +199,7 @@ namespace TrainScheduler
         }
         private void BookTicket(int id, string departure, string arrival,DateTime? time, double? Price) 
         {
+            bool skip = false;
             if (time == null || time < DateTime.Now)
             {
                 MessageBox.Show("Incorrect Date!");
@@ -211,48 +212,52 @@ namespace TrainScheduler
             {
                 MessageBox.Show($"Your account was not verified and flagged accordingly. please refer to an administrator");
                 disconnect_Click(null, null);
+                return;
             }
             KeyValuePair<int, int> seat= GetWagon(id, departure, arrival, time);
             if (seat.Key == 0)
             {
                 MessageBox.Show($"There are no more seats available in this train");
                 disconnect_Click(null, null);
+                skip = true;
             }
-            return;
             TrainEntities aux_context = new TrainEntities();
-            var ticket = new Ticket
+            if (skip == true) return;
+            else
             {
-                Price = Price,
-                User_id = this.user.User_id,
-                Wagon_id = seat.Key,
-                DayAndTime = time,
-                DepartureStation_id = Convert.ToInt32((from s in aux_context.Stations
-                                                       where s.Name == departure
-                                                       select s.Station_id).First()),
-                ArrivalStation_id = Convert.ToInt32((from s in aux_context.Stations
-                                                     where s.Name == arrival
-                                                     select s.Station_id).First()),
-                NumberOfSeat = seat.Value
-
-            };
-
-            using (var transaction = aux_context.Database.BeginTransaction())
-            {
-                try
+                var ticket = new Ticket
                 {
-                    aux_context.Tickets.Add(ticket);
-                    aux_context.SaveChanges();
-                    transaction.Commit();
-                }
-                catch (Exception ex)
+                    Price = Price,
+                    User_id = this.user.User_id,
+                    Wagon_id = seat.Key,
+                    DayAndTime = time,
+                    DepartureStation_id = Convert.ToInt32((from s in aux_context.Stations
+                                                           where s.Name == departure
+                                                           select s.Station_id).First()),
+                    ArrivalStation_id = Convert.ToInt32((from s in aux_context.Stations
+                                                         where s.Name == arrival
+                                                         select s.Station_id).First()),
+                    NumberOfSeat = seat.Value
+
+                };
+
+                using (var transaction = aux_context.Database.BeginTransaction())
                 {
-                    transaction.Rollback();
-                    MessageBox.Show("The ticket failed!");
+                    try
+                    {
+                        aux_context.Tickets.Add(ticket);
+                        aux_context.SaveChanges();
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        MessageBox.Show("The ticket failed!");
+                    }
                 }
+                MessageBox.Show($"Ticket bought!!!");
+                disconnect_Click(null, null);
             }
-            MessageBox.Show($"Ticket bought!!!");
-            disconnect_Click(null, null);
-
 
         }
 
