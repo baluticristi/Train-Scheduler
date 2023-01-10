@@ -70,7 +70,7 @@ namespace TrainScheduler
         {
             var window = new RegisterPage();
 
-            window.Show();
+            window.showRegWin(isDarkTheme);
 
             this.Close();
         }
@@ -80,6 +80,25 @@ namespace TrainScheduler
             Application.Current.Shutdown();
         }
 
+        public void showLoginPage(bool isdark)
+        {
+            this.Show();
+
+            ITheme theme = paletteHelper.GetTheme();
+
+            if (isdark == false)
+            {
+                isDarkTheme = false;
+                theme.SetBaseTheme(Theme.Light);
+            }
+            else
+            {
+                isDarkTheme = true;
+                themeToggle.IsChecked = true;
+                theme.SetBaseTheme(Theme.Dark);
+            }
+            paletteHelper.SetTheme(theme);
+        }
         private void toggleTheme(object sender, RoutedEventArgs e)
         {
             ITheme theme = paletteHelper.GetTheme();
@@ -108,12 +127,13 @@ namespace TrainScheduler
             {
                 var window = new MainWindow();
                 this.user = getUser(usernameTextBox.Text);
-                window.ShowMainWin(this.user);
+                window.ShowMainWin(this.user, this.isDarkTheme);
                 this.Close();
 
             }
             else
-                MessageBox.Show("Invalid Credentials");
+               MessageBox.Show("Invalid Credentials");
+              
         }
 
         private void loginButton_Click(object sender, RoutedEventArgs e)

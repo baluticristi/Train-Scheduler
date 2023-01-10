@@ -48,7 +48,7 @@ namespace TrainScheduler
         {
             var window = new MainWindow();
 
-            window.ShowMainWin(this.user);
+            window.ShowMainWin(this.user, this.isDarkTheme);
 
             window.Show();
 
@@ -135,7 +135,7 @@ namespace TrainScheduler
         {
             var window = new MainWindow();
 
-            window.ShowMainWin(this.user);
+            window.ShowMainWin(this.user, this.isDarkTheme);
 
             this.Close();
 

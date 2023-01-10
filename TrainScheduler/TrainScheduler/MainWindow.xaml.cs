@@ -30,7 +30,7 @@ namespace TrainScheduler
 
         public bool isDarkTheme { get; set; }
         private readonly PaletteHelper paletteHelper = new PaletteHelper();
-        public void ShowMainWin(User user)
+        public void ShowMainWin(User user, bool isdark)
         {
             String str = "Welcome, ";
             this.user = user;
@@ -38,6 +38,21 @@ namespace TrainScheduler
 
 
             hideAdminButton();
+
+            ITheme theme = paletteHelper.GetTheme();
+
+            if (isdark == false)
+            {
+                isDarkTheme = false;
+                theme.SetBaseTheme(Theme.Light);
+            }
+            else
+            {
+                isDarkTheme = true;
+                themeToggle.IsChecked = true;
+                theme.SetBaseTheme(Theme.Dark);
+            }
+            paletteHelper.SetTheme(theme);
 
             this.Show();
         }
@@ -188,7 +203,7 @@ namespace TrainScheduler
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             var tripWin = new TripPlanner();
-            tripWin.showTripPlanWin(this.user);
+            tripWin.showTripPlanWin(this.user, this.isDarkTheme);
             this.Close();
         }
 
@@ -213,7 +228,7 @@ namespace TrainScheduler
         {
             var window = new LoginPage();
 
-            window.Show();
+            window.showLoginPage(isDarkTheme);
 
             this.Close();
         }
@@ -227,7 +242,7 @@ namespace TrainScheduler
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
             var bookingHistoryWindow = new BookingHistory();
-            bookingHistoryWindow.ShowBookingHistoryWin(this.user);
+            bookingHistoryWindow.ShowBookingHistoryWin(this.user, this.isDarkTheme);
             this.Close();
         }
 

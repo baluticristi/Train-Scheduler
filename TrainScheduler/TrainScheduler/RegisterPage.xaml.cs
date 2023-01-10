@@ -15,6 +15,7 @@ using System.Security.Cryptography;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Data.SqlClient;
 using MaterialDesignThemes.Wpf;
+using System.Windows.Controls.Primitives;
 
 namespace TrainScheduler
 {
@@ -63,6 +64,7 @@ namespace TrainScheduler
             //
         }
 
+       
         private void phoneNumberRegBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!char.IsDigit((char)e.Text[0]))
@@ -200,11 +202,30 @@ namespace TrainScheduler
         {
             var window = new LoginPage();
 
-            window.Show();
+            window.showLoginPage(isDarkTheme);
 
             this.Close();
         }
 
+        public void showRegWin(bool isdark)
+        {
+            this.Show();
+
+            ITheme theme = paletteHelper.GetTheme();
+
+            if (isdark == false)
+            {
+                isDarkTheme = false;
+                theme.SetBaseTheme(Theme.Light);
+            }
+            else
+            {
+                isDarkTheme = true;
+                themeToggle.IsChecked = true;
+                theme.SetBaseTheme(Theme.Dark);
+            }
+            paletteHelper.SetTheme(theme);
+        }
         private void toggleTheme(object sender, RoutedEventArgs e)
         {
             ITheme theme = paletteHelper.GetTheme();
@@ -217,6 +238,7 @@ namespace TrainScheduler
             else
             {
                 isDarkTheme = true;
+                themeToggle.IsChecked = true;
                 theme.SetBaseTheme(Theme.Dark);
             }
             paletteHelper.SetTheme(theme);

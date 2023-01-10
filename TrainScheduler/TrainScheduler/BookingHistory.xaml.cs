@@ -32,9 +32,25 @@ namespace TrainScheduler
         public bool isDarkTheme { get; set; }
         private readonly PaletteHelper paletteHelper = new PaletteHelper();
 
-        public void ShowBookingHistoryWin(User user)
+        public void ShowBookingHistoryWin(User user, bool isdark)
         {
             this.user = user;
+
+            ITheme theme = paletteHelper.GetTheme();
+
+            if (isdark == false)
+            {
+                isDarkTheme = false;
+                theme.SetBaseTheme(Theme.Light);
+            }
+            else
+            {
+                isDarkTheme = true;
+                themeToggle.IsChecked = true;
+                theme.SetBaseTheme(Theme.Dark);
+            }
+            paletteHelper.SetTheme(theme);
+
             this.Show();
         }
         private void toggleTheme(object sender, RoutedEventArgs e)
@@ -57,14 +73,14 @@ namespace TrainScheduler
         private void exitApp(object sender, RoutedEventArgs e)
         {
             var mainWin = new MainWindow();
-            mainWin.ShowMainWin(this.user);
+            mainWin.ShowMainWin(this.user, this.isDarkTheme);
             this.Close();
         }
 
         private void backBtn_Click(object sender, RoutedEventArgs e)
         {
             var mainWin = new MainWindow();
-            mainWin.ShowMainWin(this.user);
+            mainWin.ShowMainWin(this.user, this.isDarkTheme);
             this.Close();
         }
 

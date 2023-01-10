@@ -107,9 +107,25 @@ namespace TrainScheduler
             }
             arrivalCombo.SelectedIndex = 0;
         }
-        public void showTripPlanWin(User user)
+        public void showTripPlanWin(User user, bool isdark)
         {
             this.user = user;
+
+            ITheme theme = paletteHelper.GetTheme();
+
+            if (isdark == false)
+            {
+                isDarkTheme = false;
+                theme.SetBaseTheme(Theme.Light);
+            }
+            else
+            {
+                isDarkTheme = true;
+                themeToggle.IsChecked = true;
+                theme.SetBaseTheme(Theme.Dark);
+            }
+            paletteHelper.SetTheme(theme);
+
             this.Show();
             fillDepartureComboBox();
         }
@@ -124,7 +140,7 @@ namespace TrainScheduler
         {
             var window = new MainWindow();
 
-            window.ShowMainWin(this.user);
+            window.ShowMainWin(this.user, this.isDarkTheme);
 
             this.Close();
 
@@ -225,6 +241,9 @@ namespace TrainScheduler
             if (skip == true) return;
             else
             {
+                var cardWindow = new CardWindow();
+                cardWindow.ShowDialog();
+
                 var ticket = new Ticket
                 {
                     Price = Price,
