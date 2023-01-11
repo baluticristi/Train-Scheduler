@@ -120,7 +120,8 @@ namespace TrainScheduler
                                   Trip_Date = t.DayAndTime
                               };
 
-                                                                            //merge foarte bine, ai grija sa nu fie pb cu vagoanele harcodate.
+
+
             ticketsGrid.ItemsSource = ticketsData.ToList();
         }
     }
