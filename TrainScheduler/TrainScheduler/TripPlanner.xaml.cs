@@ -402,7 +402,7 @@ namespace TrainScheduler
                                     Arrival = s2.Name,
                                     Time = ls.DepartureTime,
                                     Distance = ls2.Distance,
-                                    Price = ls2.Distance * 0.3
+                                    Price = (ls2.Distance * 0.3).ToString()+" RON"
                                 };
 
 

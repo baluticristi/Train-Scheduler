@@ -51,7 +51,7 @@
 
                                 <Label Content="/" FontWeight="Bold" FontSize="20" Margin="12 30 0 0" />
 
-                                <TextBox Margin="20 20 0 0" x:Name="yearDate" Width="80" FontSize="13" materialDesign:HintAssist.Hint = "YY" BorderThickness="2"
+                                <TextBox Margin="20 20 0 0" x:Name="yearDate" Width="80" FontSize="13" materialDesign:HintAssist.Hint = "YYYY" BorderThickness="2"
                                 BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignOutlinedTextBox}" MaxLength="4" PreviewTextInput="yearDate_PreviewTextInput"/>
 
                             </StackPanel>

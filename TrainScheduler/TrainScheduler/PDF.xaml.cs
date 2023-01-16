@@ -96,7 +96,7 @@ namespace TrainScheduler
             departureTime.Text = Convert.ToString(aux.DepartureTime);
             arrivalStation.Text = Convert.ToString(aux.ArrivalStation);
             arrivalTime.Text = Convert.ToString(aux.ArrivalTime);
-            priceBlock.Text = Convert.ToString(aux.Price);
+            priceBlock.Text = Convert.ToString(aux.Price)+ " RON";
 
             
             SendPDF(user);
@@ -192,7 +192,6 @@ namespace TrainScheduler
                 client.Dispose();
 
                 //this.Close();
-
             }
         }
     }
