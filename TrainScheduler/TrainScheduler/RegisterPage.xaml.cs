@@ -86,7 +86,10 @@ namespace TrainScheduler
             {
                 if (email == item.email)
                 {
-                    MessageBox.Show("A user with this email is already registered!");
+                    //MessageBox.Show("A user with this email is already registered!");
+                    MessageBoxWin boxMessage = new MessageBoxWin();
+                    boxMessage.msg.Text = "A user with this email is already registered!";
+                    boxMessage.ShowDialog();
                     return false;
                 }
             }
@@ -98,7 +101,11 @@ namespace TrainScheduler
                 || passwordRegBox.ToString() == ""|| firstNameRegBox.Text == "First Name" || lastNameRegBox.Text == "Last Name" || emailRegBox.Text == "Email" || phoneNumberRegBox.Text == "phone"
                 || passwordRegBox.ToString() == "password")
             {
-                MessageBox.Show("All the fields must be filled!");
+
+                //MessageBox.Show("All the fields must be filled!");
+                MessageBoxWin boxMessage = new MessageBoxWin();
+                boxMessage.msg.Text = "All the fields must be filled!";
+                boxMessage.ShowDialog();
                 return false;
             }
 
@@ -177,14 +184,28 @@ namespace TrainScheduler
                         transaction.Rollback();
 
                         if (studentRegBox.IsChecked == true && elderRegBox.IsChecked == true)
-                            MessageBox.Show("You can not be a student and a senior citizen at the same time :(");
+                        {
+                            //MessageBox.Show("You can not be a student and a senior citizen at the same time :(");
+                            MessageBoxWin boxMessage = new MessageBoxWin();
+                            boxMessage.msg.Text = "You can not be a student and a senior citizen at the same time :(";
+                            boxMessage.ShowDialog();
+                        }
                         else
-                            MessageBox.Show("The registration failed!");
+                        {
+                            //MessageBox.Show("The registration failed!");
+                            MessageBoxWin boxMessage = new MessageBoxWin();
+                            boxMessage.msg.Text = "The registration failed!";
+                            boxMessage.ShowDialog();
+                        }
                         return;
                     }
                 }
 
-                MessageBox.Show("You have been registrated!");
+                //MessageBox.Show("You have been registrated!");
+
+                MessageBoxWin mBoxMessage = new MessageBoxWin();
+                mBoxMessage.msg.Text = "You have been registrated!";
+                mBoxMessage.ShowDialog();
 
                 var log_win = new LoginPage();
                 log_win.Show();

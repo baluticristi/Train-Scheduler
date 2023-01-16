@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -24,9 +25,12 @@ namespace TrainScheduler
     {
         public bool isDarkTheme { get; set; }
         private readonly PaletteHelper paletteHelper = new PaletteHelper();
+        private bool isTrue=true;
+        public bool ticketBought  { get; set; }
         public CardWindow()
         {
             InitializeComponent();
+            this.ticketBought= false;
         }
 
         private void cancelApp(object sender, RoutedEventArgs e)
@@ -98,45 +102,66 @@ namespace TrainScheduler
         private void payButton_Click(object sender, RoutedEventArgs e)
         {
             bool isNumeric;
-
-            if (cardNumberBox.Text.Length < 19 || isOkFormatCardNumber() == false || isValidCardNumber() == false)
+            if (isTrue == true)
             {
-                MessageBox.Show("Card Number is not corect!");
-                return;
-            }
+                if (cardNumberBox.Text.Length < 19 || isOkFormatCardNumber() == false || isValidCardNumber() == false)
+                {
+                    //MessageBox.Show("Card Number is not corect!");
+                    TrainScheduler.MessageBoxWin boxMessage = new TrainScheduler.MessageBoxWin();
+                    boxMessage.msg.Text = "Card Number is not corect!";
+                    boxMessage.ShowDialog();
+                    return;
+                }
 
-            isNumeric = Regex.IsMatch(monthDate.Text, @"^\d+$");
-            if(isNumeric == false || monthDate.Text.Length < 2 || Convert.ToInt32(monthDate.Text) > 12)
-            {
-                MessageBox.Show("Month is invalid!");
-                return;
-            }
+                isNumeric = Regex.IsMatch(monthDate.Text, @"^\d+$");
+                if (isNumeric == false || monthDate.Text.Length < 2 || Convert.ToInt32(monthDate.Text) > 12)
+                {
+                    // MessageBox.Show("Month is invalid!");
+                    TrainScheduler.MessageBoxWin boxMessage = new TrainScheduler.MessageBoxWin();
+                    boxMessage.msg.Text = "Month is invalid!";
+                    boxMessage.ShowDialog();
+                    return;
+                }
 
-            isNumeric = Regex.IsMatch(yearDate.Text, @"^\d+$");
-            if (isNumeric == false || yearDate.Text.Length < 4 || Convert.ToInt32(yearDate.Text) > (DateTime.Now.Year + 7))
-            {
-                MessageBox.Show("Year is invalid!");
-                return;
-            }
+                isNumeric = Regex.IsMatch(yearDate.Text, @"^\d+$");
+                if (isNumeric == false || yearDate.Text.Length < 4 || Convert.ToInt32(yearDate.Text) > (DateTime.Now.Year + 7))
+                {
+                    //MessageBox.Show("Year is invalid!");
+                    MessageBoxWin boxMessage = new MessageBoxWin();
+                    boxMessage.msg.Text = "Year is invalid!";
+                    boxMessage.ShowDialog();
+                    return;
+                }
 
-            DateTime date = new DateTime(Convert.ToInt32(yearDate.Text), Convert.ToInt32(monthDate.Text), 1);
-            
-            ///////////////////////////////////////////////////
-            ///TREBUIE VERIFICAT SI CVV
-            ///
-            if(cvvNumber.Text.Length < 3)
-            {
-                MessageBox.Show("The cvv is invalid");
-                return;
-            }
+                DateTime date = new DateTime(Convert.ToInt32(yearDate.Text), Convert.ToInt32(monthDate.Text), 1);
 
-            if(date <= DateTime.Now)
-            {
-                MessageBox.Show("The card is expired");
-                return;
-            }
+                ///////////////////////////////////////////////////
+                ///TREBUIE VERIFICAT SI CVV
+                ///
+                if (cvvNumber.Text.Length < 3)
+                {
+                    //MessageBox.Show("The cvv is invalid");
+                    MessageBoxWin boxMessage = new MessageBoxWin();
+                    boxMessage.msg.Text = "The cvv is invalid";
+                    boxMessage.ShowDialog();
+                    return;
+                }
 
-            MessageBox.Show("Succes!");
+                if (date <= DateTime.Now)
+                {
+                    //MessageBox.Show("The card is expired");
+                    MessageBoxWin boxMessage = new MessageBoxWin();
+                    boxMessage.msg.Text = "The card is expired";
+                    boxMessage.ShowDialog();
+                    return;
+                }
+            }
+            //MessageBox.Show("Succes!");
+            MessageBoxWin mboxWin = new MessageBoxWin();
+            mboxWin.msg.Text = "Succes";
+            mboxWin.ShowDialog();
+
+            this.ticketBought = true;
             this.Close();
         }
 
@@ -197,6 +222,21 @@ namespace TrainScheduler
             {
                 e.Handled = true;
             }
+        }
+
+        private void cardNumberBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void istrue_Checked(object sender, RoutedEventArgs e)
+        {
+            isTrue = true;
+        }
+
+        private void istrue_Unchecked(object sender, RoutedEventArgs e)
+        {
+            isTrue = false;
         }
     }
 }

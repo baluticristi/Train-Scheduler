@@ -33,13 +33,28 @@ namespace TrainScheduler
             InitializeComponent();
         }
 
-       public void ShowAdminPort()
+       public void ShowAdminPort(bool isdark)
        {
 
             this.acceptBtn.Visibility = Visibility.Hidden;
             this.declineBtn.Visibility = Visibility.Hidden;
             this.requestTxTBoX.Visibility = Visibility.Hidden;
-            this.reqLabel.Visibility = Visibility.Hidden; 
+            this.reqLabel.Visibility = Visibility.Hidden;
+
+            ITheme theme = paletteHelper.GetTheme();
+
+            if (isdark == false)
+            {
+                isDarkTheme = false;
+                theme.SetBaseTheme(Theme.Light);
+            }
+            else
+            {
+                isDarkTheme = true;
+                themeToggle.IsChecked = true;
+                theme.SetBaseTheme(Theme.Dark);
+            }
+            paletteHelper.SetTheme(theme);
 
             this.Show();
             refreshRequests();
@@ -127,7 +142,12 @@ namespace TrainScheduler
             user.is_verified = true;
             context.SaveChanges();
             deleteRequest(id);
-            MessageBox.Show("User was accepted!");
+
+            //MessageBox.Show("User was accepted!");
+            MessageBoxWin mbox = new MessageBoxWin();
+            mbox.msg.Text = "User was accepted!";
+            mbox.ShowDialog();
+
             refreshRequests();
 
         }
@@ -183,9 +203,24 @@ namespace TrainScheduler
             user.Role_id = context.Roles.Where(r => r.Role_name == "Thief").First().Role_id;
             context.SaveChanges();
             deleteRequest(id);
-            MessageBox.Show("User was not accepted!");
+
+            //MessageBox.Show("User was not accepted!");
+
+            MessageBoxWin mbox = new MessageBoxWin();
+            mbox.msg.Text = "User was not accepted!";
+            mbox.ShowDialog();
+
             refreshRequests();
 
+        }
+
+        private void ticketBtnWin_Click(object sender, RoutedEventArgs e)
+        {
+            AllTicketWin tkWin = new AllTicketWin();
+            
+            tkWin.ShowTicketsWin(this.user, this.isDarkTheme);
+
+            this.Close();
         }
     }
 }

@@ -12,7 +12,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+//using System.Windows.Shapes;
+
+using Syncfusion.Pdf;
+using Syncfusion.Pdf.Graphics;
+
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows;
+using System.IO.Packaging;
+using System.IO;
+using System.Windows.Xps;
+using System.Windows.Xps.Packaging;
+using System.Windows.Xps.Serialization;
+
+using MimeKit;
+using MailKit.Net.Smtp;
+using MailKit;
+using MailKit.Security;
+using System.Reflection.Emit;
 
 namespace TrainScheduler
 {
@@ -20,15 +38,18 @@ namespace TrainScheduler
     public partial class PDF : Window
     {
         private TrainEntities context = new TrainEntities();
-
+        public User User { get; set; }
 
         public PDF()
         {
             InitializeComponent();
+   
         }
 
-        public void CreatePDF(User user)
+        public void showTicket(User user, int wagonId)
         {
+            
+            this.User= user;
             var ticketsData = from t in context.Tickets
                               join wag in context.Wagons
                               on t.Wagon_id equals wag.Wagon_id
@@ -48,7 +69,7 @@ namespace TrainScheduler
                               join st2 in context.Stations
                               on ls2.Station_id equals st2.Station_id
 
-                              where user.User_id == t.User_id && t.DepartureStation_id == st1.Station_id && t.ArrivalStation_id == st2.Station_id
+                              where user.User_id == t.User_id && t.DepartureStation_id == st1.Station_id && t.ArrivalStation_id == st2.Station_id && wag.Wagon_id == wagonId
 
                               select new
                               {
@@ -64,8 +85,9 @@ namespace TrainScheduler
                                   Price = t.Price,
                                   TripDate = t.DayAndTime
                               };
+
             var aux = ticketsData.First();
-            tichetNumber.Text = Convert.ToString(aux.TicketID);
+            tichetNumber.Text = aux.TicketID.ToString();
             buyerName.Text = aux.BuyerName;
             trainNumber.Text = Convert.ToString(aux.TrainNumber);
             wagonNumber.Text = Convert.ToString(aux.WagonNumber);
@@ -76,14 +98,102 @@ namespace TrainScheduler
             arrivalTime.Text = Convert.ToString(aux.ArrivalTime);
             priceBlock.Text = Convert.ToString(aux.Price);
 
-            SendPDF();
-
+            
+            SendPDF(user);
         }
 
-        public void SendPDF()
+
+        private string createPdf(User user)
         {
+            string fileName = "bilet_" + user.User_id.ToString() + ".pdf";
+
+
+            MemoryStream lMemoryStream = new MemoryStream();
+            Package package = Package.Open(lMemoryStream, FileMode.Create);
+            XpsDocument doc = new XpsDocument(package);
+            XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(doc);
+
+            // This is your window
+            this.Show();
+            writer.Write(this);
+
+            doc.Close();
+            package.Close();
+
+            // Convert 
+            MemoryStream outStream = new MemoryStream();
+            PdfSharp.Xps.XpsConverter.Convert(lMemoryStream, outStream, false);
+
+            // Write pdf file
+            FileStream fileStream = new FileStream(fileName, FileMode.Create);
+            outStream.CopyTo(fileStream);
+
+           // this.Visibility = Visibility.Hidden;
+
+            // Clean up
+            outStream.Flush();
+            outStream.Close();
+            fileStream.Flush();
+            fileStream.Close();
+            this.Close();
+            return fileName;
 
         }
+        private void SendPDF(User user)
+        {
+            string fileName = createPdf(user);
 
+            MimeMessage message = new MimeMessage();
+
+            message.From.Add(new MailboxAddress(user.LastName.ToString(), "CiuCiu_Train@outlook.com"));
+            message.To.Add(MailboxAddress.Parse(user.email.ToString()));
+            message.Subject = "CIUCIU TICKET";
+            message.Body = new TextPart("plain")
+            {
+                Text = "Your ticket"
+            };
+
+            var attachment = new MimePart("application", "pdf")
+            {
+                Content = new MimeContent(File.OpenRead(fileName)),
+                ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
+                ContentTransferEncoding = ContentEncoding.Base64,
+                FileName = Path.GetFileName (fileName)
+            };
+
+            var multipart = new Multipart("mixed");
+            multipart.Add(new TextPart("plain") { Text = "Your Ticket:" });
+            multipart.Add(attachment);    
+            message.Body = multipart;
+
+            string emailAddress = "CiuCiu_Train@outlook.com";
+            string pass = "Train123";
+
+            SmtpClient client = new SmtpClient();
+
+            try
+            {
+                client.Connect("smtp-mail.outlook.com", 587, SecureSocketOptions.StartTls);
+                client.Authenticate(emailAddress, pass);
+                client.Send(message);
+
+                Console.WriteLine("Email Sent!.");
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+            }
+            finally
+            {
+                client.Disconnect(true);
+
+                client.Dispose();
+
+                //this.Close();
+
+            }
+        }
     }
 }

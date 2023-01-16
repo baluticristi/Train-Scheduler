@@ -21,13 +21,12 @@
                 <materialDesign:PopupBox HorizontalAlignment="Right" Margin="0 20 20 0"
                                          PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Height="25">
                     <StackPanel>
-
+                        <CheckBox x:Name='istrue' Checked="istrue_Checked" IsChecked="True" Unchecked="istrue_Unchecked"></CheckBox>
                         <StackPanel Margin="16 10 0 6" Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock VerticalAlignment="Center" Text="Dark Mode" />
                             <ToggleButton Cursor="Hand" ToolTip="Enable Dark Mode" Margin="12 0 8 0" x:Name="themeToggle" IsChecked="{Binding isDarkTheme}" Click="toggleTheme" />
                         </StackPanel>
                         <Button x:Name="btn_exit" ToolTip="Exit" Content="Cancel Payment" Click="cancelApp" />
-
 
                     </StackPanel>
                 </materialDesign:PopupBox>
@@ -39,7 +38,7 @@
                         BorderBrush="{DynamicResource MaterialDesignDivider}" 
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                         MaxLength="19"
-                        PreviewTextInput="CardNumberBox_PreviewTextInput" />
+                        PreviewTextInput="CardNumberBox_PreviewTextInput" TextChanged="cardNumberBox_TextChanged" />
 
                         <StackPanel Orientation="Vertical">
 

@@ -1,6 +1,8 @@
 ﻿using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
+using System.IO.Packaging;
+using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Runtime.Serialization.Formatters;
@@ -15,6 +17,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
+using System.Windows.Xps;
+using System.Windows.Xps.Packaging;
 
 namespace TrainScheduler
 {
@@ -128,6 +132,7 @@ namespace TrainScheduler
 
             this.Show();
             fillDepartureComboBox();
+
         }
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
@@ -143,7 +148,6 @@ namespace TrainScheduler
             window.ShowMainWin(this.user, this.isDarkTheme);
 
             this.Close();
-
         }
         KeyValuePair<int, int> GetWagon(int id, string departure, string arrival, DateTime? time)
 
@@ -218,7 +222,10 @@ namespace TrainScheduler
             bool skip = false;
             if (time == null || time < DateTime.Now)
             {
-                MessageBox.Show("Incorrect Date!");
+                //MessageBox.Show("Incorrect Date!");
+                MessageBoxWin boxMessage = new MessageBoxWin();
+                boxMessage.msg.Text = "Incorrect Date!";
+                boxMessage.ShowDialog();
                 return;
             }
             if (user.Role.Role_name == "Student") { Price = Price / 2; }
@@ -226,14 +233,21 @@ namespace TrainScheduler
             else if (user.Role.Role_name == "Administator") { Price = 0; }
             else if (user.Role.Role_name == "Thief")
             {
-                MessageBox.Show($"Your account was not verified and flagged accordingly. please refer to an administrator");
+                //MessageBox.Show($"Your account was not verified and flagged accordingly. please refer to an administrator");
+                MessageBoxWin boxMessage = new MessageBoxWin();
+                boxMessage.msg.Text = $"Your account was not verified and flagged accordingly. please refer to an administrator";
+                boxMessage.ShowDialog();
                 disconnect_Click(null, null);
                 return;
             }
             KeyValuePair<int, int> seat= GetWagon(id, departure, arrival, time);
             if (seat.Key == 0)
             {
-                MessageBox.Show($"There are no more seats available in this train");
+                //MessageBox.Show($"There are no more seats available in this train");
+                MessageBoxWin boxMessage = new MessageBoxWin();
+                boxMessage.msg.Text = $"There are no more seats available in this train";
+                boxMessage.ShowDialog();
+
                 disconnect_Click(null, null);
                 skip = true;
             }
@@ -243,6 +257,16 @@ namespace TrainScheduler
             {
                 var cardWindow = new CardWindow();
                 cardWindow.ShowDialog();
+
+                if (cardWindow.ticketBought == false)
+                {
+                    //MessageBox.Show("The card payment failed!");
+                    MessageBoxWin boxMessage = new MessageBoxWin();
+                    boxMessage.msg.Text = "The card payment failed!";
+                    boxMessage.ShowDialog();
+                    return;
+                }
+
 
                 var ticket = new Ticket
                 {
@@ -271,10 +295,22 @@ namespace TrainScheduler
                     catch (Exception ex)
                     {
                         transaction.Rollback();
-                        MessageBox.Show("The ticket failed!");
+                        //MessageBox.Show("The ticket failed!");
+
+                        MessageBoxWin boxMessage = new MessageBoxWin();
+                        boxMessage.msg.Text = "The ticket failed!";
+                        boxMessage.ShowDialog();
                     }
                 }
-                MessageBox.Show($"Ticket bought!!!");
+          
+                PDF pdfWin = new PDF();
+                pdfWin.showTicket(this.user, seat.Key);
+
+
+                //MessageBox.Show($"Ticket bought!!!");
+                MessageBoxWin mBoxMessage = new MessageBoxWin();
+                mBoxMessage.msg.Text = $"Ticket bought!!!";
+                mBoxMessage.ShowDialog();
                 disconnect_Click(null, null);
             }
 
@@ -285,6 +321,8 @@ namespace TrainScheduler
             string departure = departureCombo.Text;
             string arrival = arrivalCombo.Text;
 
+            if (trip_id_box.Text == "")
+                return;
             
             var trainData = from t in context.Trains
                         join ls in context.LineStations
@@ -374,7 +412,11 @@ namespace TrainScheduler
                 }
                 else
                 {
-                    MessageBox.Show($"There is no such train!");
+                    //MessageBox.Show($"There is no such train!");
+                    MessageBoxWin mBoxMessage = new MessageBoxWin();
+                    mBoxMessage.msg.Text = $"There is no such train!";
+                    mBoxMessage.ShowDialog();
+
                     return;
                 };
 

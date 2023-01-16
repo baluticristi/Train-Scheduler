@@ -1,6 +1,8 @@
 ﻿using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
+using System.IO.Packaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Xps;
+using System.Windows.Xps.Packaging;
 
 namespace TrainScheduler
 {
@@ -132,8 +136,14 @@ namespace TrainScheduler
 
             }
             else
-               MessageBox.Show("Invalid Credentials");
-              
+            {
+                //MessageBox.Show("Invalid Credentials");
+                MessageBoxWin boxMessage = new MessageBoxWin();
+                boxMessage.msg.Text = "Invalid Credentials";
+                boxMessage.ShowDialog();
+            }
+
+
         }
 
         private void loginButton_Click(object sender, RoutedEventArgs e)

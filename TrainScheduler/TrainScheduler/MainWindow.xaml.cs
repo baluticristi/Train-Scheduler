@@ -112,7 +112,7 @@ namespace TrainScheduler
         {
             var adminWin = new AdminPortalWin(user);
 
-            adminWin.ShowAdminPort();
+            adminWin.ShowAdminPort(this.isDarkTheme);
 
             this.Close();
         }
@@ -157,7 +157,10 @@ namespace TrainScheduler
         {
             if(isJustDigits(trainNumberTxTBox.Text) == false)
             {
-                MessageBox.Show($"The train with the id: {trainNumberTxTBox.Text} does not exist!");
+                //MessageBox.Show($"The train with the id: {trainNumberTxTBox.Text} does not exist!");
+                MessageBoxWin boxMessage = new MessageBoxWin();
+                boxMessage.msg.Text = $"The train with the id: {trainNumberTxTBox.Text} does not exist!";
+                boxMessage.ShowDialog();
                 return;
             }
             int trainNumberInt = Convert.ToInt32(trainNumberTxTBox.Text);
@@ -191,7 +194,10 @@ namespace TrainScheduler
             }
             else
             {
-                MessageBox.Show($"The train with the id: {trainNumberTxTBox.Text} does not exist!");
+                //MessageBox.Show($"The train with the id: {trainNumberTxTBox.Text} does not exist!");
+                MessageBoxWin boxMessage = new MessageBoxWin();
+                boxMessage.msg.Text = $"The train with the id: {trainNumberTxTBox.Text} does not exist!";
+                boxMessage.ShowDialog();
                 return;
             };
         }
