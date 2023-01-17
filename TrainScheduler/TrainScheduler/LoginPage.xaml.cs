@@ -57,7 +57,7 @@ namespace TrainScheduler
 
             foreach (var user in users)
             {
-                if(user.email.ToString() == usernameTextBox.Text && user.password.ToString() == Convert.ToBase64String(RegisterPage.getHashForPasswd(passwordTextBox.Password)))
+                if (user.email.ToString() == usernameTextBox.Text && user.password.ToString() == Convert.ToBase64String(RegisterPage.getHashForPasswd(passwordTextBox.Password)))
                     return true;
             }
             return false;

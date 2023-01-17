@@ -25,12 +25,12 @@ namespace TrainScheduler
     {
         public bool isDarkTheme { get; set; }
         private readonly PaletteHelper paletteHelper = new PaletteHelper();
-        private bool isTrue=true;
-        public bool ticketBought  { get; set; }
+        private bool isTrue = true;
+        public bool ticketBought { get; set; }
         public CardWindow()
         {
             InitializeComponent();
-            this.ticketBought= false;
+            this.ticketBought = false;
         }
 
         private void cancelApp(object sender, RoutedEventArgs e)
@@ -81,12 +81,12 @@ namespace TrainScheduler
             cardNumber = RemoveWhitespace(cardNumber);
 
             int i, checkSum = 0;
-            for(i = cardNumber.Length-1;i >= 0; i-=2) 
+            for (i = cardNumber.Length - 1; i >= 0; i -= 2)
             {
                 checkSum += (cardNumber[i] - '0');
             }
 
-            for(i=cardNumber.Length-2;i>=0;i-=2)
+            for (i = cardNumber.Length - 2; i >= 0; i -= 2)
             {
                 int val = ((cardNumber[i] - '0') * 2);
                 while (val > 0)
@@ -97,7 +97,7 @@ namespace TrainScheduler
             }
 
             return ((checkSum % 10) == 0);
-            
+
         }
         private void payButton_Click(object sender, RoutedEventArgs e)
         {

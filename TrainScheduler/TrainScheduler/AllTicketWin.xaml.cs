@@ -33,8 +33,8 @@ namespace TrainScheduler
 
         public void ShowTicketsWin(User admin, bool isdark)
         {
-          
-            this.admin= admin;
+
+            this.admin = admin;
 
             fillUserComboBox();
 
@@ -99,7 +99,7 @@ namespace TrainScheduler
 
         private User GetUser(string name)
         {
-            var user = context.Users.Where(u => u.FirstName+" "+u.LastName == name).First();
+            var user = context.Users.Where(u => u.FirstName + " " + u.LastName == name).First();
             return user;
         }
 

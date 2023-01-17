@@ -41,7 +41,7 @@
 
                         <StackPanel Margin="0 0 0 6" Orientation="Horizontal" HorizontalAlignment="Left">
 
-                            <Label Content="Users: " />
+                            <Label Content="User: " />
                             <ComboBox x:Name="comboUsers" Width="120" SelectionChanged="comboUsers_SelectionChanged_1" />
                         </StackPanel>
 

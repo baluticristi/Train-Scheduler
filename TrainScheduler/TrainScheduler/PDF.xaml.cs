@@ -43,13 +43,13 @@ namespace TrainScheduler
         public PDF()
         {
             InitializeComponent();
-   
+
         }
 
         public void showTicket(User user, int wagonId)
         {
-            
-            this.User= user;
+
+            this.User = user;
             var ticketsData = from t in context.Tickets
                               join wag in context.Wagons
                               on t.Wagon_id equals wag.Wagon_id
@@ -96,9 +96,9 @@ namespace TrainScheduler
             departureTime.Text = Convert.ToString(aux.DepartureTime);
             arrivalStation.Text = Convert.ToString(aux.ArrivalStation);
             arrivalTime.Text = Convert.ToString(aux.ArrivalTime);
-            priceBlock.Text = Convert.ToString(aux.Price)+ " RON";
+            priceBlock.Text = Convert.ToString(aux.Price) + " RON";
 
-            
+
             SendPDF(user);
         }
 
@@ -128,7 +128,7 @@ namespace TrainScheduler
             FileStream fileStream = new FileStream(fileName, FileMode.Create);
             outStream.CopyTo(fileStream);
 
-           // this.Visibility = Visibility.Hidden;
+            // this.Visibility = Visibility.Hidden;
 
             // Clean up
             outStream.Flush();
@@ -158,12 +158,12 @@ namespace TrainScheduler
                 Content = new MimeContent(File.OpenRead(fileName)),
                 ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
                 ContentTransferEncoding = ContentEncoding.Base64,
-                FileName = Path.GetFileName (fileName)
+                FileName = Path.GetFileName(fileName)
             };
 
             var multipart = new Multipart("mixed");
             multipart.Add(new TextPart("plain") { Text = "Your Ticket:" });
-            multipart.Add(attachment);    
+            multipart.Add(attachment);
             message.Body = multipart;
 
             string emailAddress = "CiuCiu_Train@outlook.com";

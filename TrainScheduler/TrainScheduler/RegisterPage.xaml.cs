@@ -33,12 +33,12 @@ namespace TrainScheduler
             InitializeComponent();
         }
 
-   
+
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
 
         }
-        
+
         private void TextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             firstNameRegBox.Text = "";
@@ -64,7 +64,7 @@ namespace TrainScheduler
             //
         }
 
-       
+
         private void phoneNumberRegBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!char.IsDigit((char)e.Text[0]))
@@ -76,13 +76,13 @@ namespace TrainScheduler
         {
             var emails = from em in context.Users
                          select new
-                         { 
+                         {
                              em.email
                          };
 
             var list = emails.ToList();
 
-            foreach(var item in list)
+            foreach (var item in list)
             {
                 if (email == item.email)
                 {
@@ -97,8 +97,8 @@ namespace TrainScheduler
         }
         private bool verifyInputData()
         {
-            if(firstNameRegBox.Text == "" || lastNameRegBox.Text == "" || emailRegBox.Text == "" || phoneNumberRegBox.Text ==  ""
-                || passwordRegBox.ToString() == ""|| firstNameRegBox.Text == "First Name" || lastNameRegBox.Text == "Last Name" || emailRegBox.Text == "Email" || phoneNumberRegBox.Text == "phone"
+            if (firstNameRegBox.Text == "" || lastNameRegBox.Text == "" || emailRegBox.Text == "" || phoneNumberRegBox.Text == ""
+                || passwordRegBox.ToString() == "" || firstNameRegBox.Text == "First Name" || lastNameRegBox.Text == "Last Name" || emailRegBox.Text == "Email" || phoneNumberRegBox.Text == "phone"
                 || passwordRegBox.ToString() == "password")
             {
 
@@ -126,7 +126,7 @@ namespace TrainScheduler
         private int getRoleId(string role)
         {
             var data = context.Roles.Where(item => item.Role_name == role).First();
-           
+
             return data.Role_id;
         }
         private User getUserObject()
@@ -141,7 +141,7 @@ namespace TrainScheduler
             user.is_verified = false;
 
             if (studentRegBox.IsChecked == true && elderRegBox.IsChecked == true)
-                return null; 
+                return null;
 
             if (studentRegBox.IsChecked == true)
                 user.Role_id = getRoleId("Student");
@@ -149,7 +149,7 @@ namespace TrainScheduler
                 user.Role_id = getRoleId("Elder");
             else
                 user.Role_id = getRoleId("Adult");
-          
+
 
             return user;
         }

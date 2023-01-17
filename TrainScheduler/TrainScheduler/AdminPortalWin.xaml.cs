@@ -33,8 +33,8 @@ namespace TrainScheduler
             InitializeComponent();
         }
 
-       public void ShowAdminPort(bool isdark)
-       {
+        public void ShowAdminPort(bool isdark)
+        {
 
             this.acceptBtn.Visibility = Visibility.Hidden;
             this.declineBtn.Visibility = Visibility.Hidden;
@@ -58,7 +58,7 @@ namespace TrainScheduler
 
             this.Show();
             refreshRequests();
-       }
+        }
         private void backBtn_Click(object sender, RoutedEventArgs e)
         {
             var window = new MainWindow();
@@ -79,7 +79,7 @@ namespace TrainScheduler
                        join u in context.Users
                        on r.User_id equals u.User_id
                        join rol in context.Roles
-                       on u.Role_id equals rol.Role_id 
+                       on u.Role_id equals rol.Role_id
                        select new
                        {
                            r.Request_id,
@@ -91,7 +91,7 @@ namespace TrainScheduler
 
             var listRequest = data.ToList();
 
-            if(data != null)
+            if (data != null)
             {
                 this.acceptBtn.Visibility = Visibility.Visible;
                 this.declineBtn.Visibility = Visibility.Visible;
@@ -198,7 +198,7 @@ namespace TrainScheduler
                 return;
 
             User user = context.Users.Where(u => u.User_id == u_id).First();
-            
+
             user.is_verified = true;
             user.Role_id = context.Roles.Where(r => r.Role_name == "Thief").First().Role_id;
             context.SaveChanges();
@@ -217,7 +217,7 @@ namespace TrainScheduler
         private void ticketBtnWin_Click(object sender, RoutedEventArgs e)
         {
             AllTicketWin tkWin = new AllTicketWin();
-            
+
             tkWin.ShowTicketsWin(this.user, this.isDarkTheme);
 
             this.Close();

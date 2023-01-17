@@ -105,7 +105,7 @@ namespace TrainScheduler
                               join st2 in context.Stations
                               on ls2.Station_id equals st2.Station_id
 
-                              where user.User_id == t.User_id && t.DepartureStation_id == st1.Station_id && t.ArrivalStation_id== st2.Station_id
+                              where user.User_id == t.User_id && t.DepartureStation_id == st1.Station_id && t.ArrivalStation_id == st2.Station_id
 
                               select new
                               {

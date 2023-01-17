@@ -47,15 +47,15 @@ namespace TrainScheduler
                             on ls.Station_id equals s.Station_id  //for departure stations
 
                             where ls.DepartureTime != null
-                            select new 
+                            select new
                             {
                                 DepartureStation = s.Name,
                             };
-        
-           foreach(var item in trainData.ToList())
-           {
+
+            foreach (var item in trainData.ToList())
+            {
                 departureCombo.Items.Add(item.DepartureStation);
-           }
+            }
         }
 
         private void exitApp(object sender, RoutedEventArgs e)
@@ -155,29 +155,29 @@ namespace TrainScheduler
             int WagNum;
             //get the wagons for the train on the route
             var wagons = from t in context.Trains
-                            join ls in context.LineStations
-                            on t.Line_id equals ls.Line_id    //for trains ids
+                         join ls in context.LineStations
+                         on t.Line_id equals ls.Line_id    //for trains ids
 
-                            join s in context.Stations
-                            on ls.Station_id equals s.Station_id  //for departure stations
+                         join s in context.Stations
+                         on ls.Station_id equals s.Station_id  //for departure stations
 
-                            join ls2 in context.LineStations
-                            on t.Line_id equals ls2.Line_id
+                         join ls2 in context.LineStations
+                         on t.Line_id equals ls2.Line_id
 
-                            join s2 in context.Stations
-                            on ls2.Station_id equals s2.Station_id
+                         join s2 in context.Stations
+                         on ls2.Station_id equals s2.Station_id
 
-                            join w in context.Wagons
-                            on t.Train_id equals w.Train_id
+                         join w in context.Wagons
+                         on t.Train_id equals w.Train_id
 
-                            where ls2.ArrivalTime != null && ls.DepartureTime != null &&
-                            ls.Distance < ls2.Distance && ls.Line_id == ls2.Line_id && s.Name == departure && s2.Name == arrival &&
-                            t.Train_id == id
-                            select new
-                            {
-                                WagonNumber = w.Wagon_id,
-                                Capacity=w.Capacity
-                            };
+                         where ls2.ArrivalTime != null && ls.DepartureTime != null &&
+                         ls.Distance < ls2.Distance && ls.Line_id == ls2.Line_id && s.Name == departure && s2.Name == arrival &&
+                         t.Train_id == id
+                         select new
+                         {
+                             WagonNumber = w.Wagon_id,
+                             Capacity = w.Capacity
+                         };
             //cross check them with the tickets already bought
             var WagonsBooked = from tck in context.Tickets
                                join t in context.Wagons
@@ -190,7 +190,7 @@ namespace TrainScheduler
                                    ResDate = tck.DayAndTime
                                };
 
-            Dictionary<int, int> wags = new Dictionary<int,int>();
+            Dictionary<int, int> wags = new Dictionary<int, int>();
             foreach (var w in wagons)
             {
                 wags.Add(w.WagonNumber, Convert.ToInt32(w.Capacity));
@@ -200,9 +200,9 @@ namespace TrainScheduler
             {
                 for (int i = 0; i < wags.Count; i++)
                 {
-                    if (wags.ElementAt(i).Key == b.WagonID && b.ResDate==time)
+                    if (wags.ElementAt(i).Key == b.WagonID && b.ResDate == time)
                     {
-                        wags[wags.ElementAt(i).Key] = wags[wags.ElementAt(i).Key]-1;
+                        wags[wags.ElementAt(i).Key] = wags[wags.ElementAt(i).Key] - 1;
                     }
                 }
             }
@@ -211,13 +211,13 @@ namespace TrainScheduler
             {
                 if (wags[key] > 0)
                 {
-                    
-                    return  new KeyValuePair<int, int>(Convert.ToInt32(key),wags[key]);
+
+                    return new KeyValuePair<int, int>(Convert.ToInt32(key), wags[key]);
                 }
             }
-            return new KeyValuePair<int, int> (0,0);
+            return new KeyValuePair<int, int>(0, 0);
         }
-        private void BookTicket(int id, string departure, string arrival,DateTime? time, double? Price) 
+        private void BookTicket(int id, string departure, string arrival, DateTime? time, double? Price)
         {
             bool skip = false;
             if (time == null || time < DateTime.Now)
@@ -240,7 +240,7 @@ namespace TrainScheduler
                 disconnect_Click(null, null);
                 return;
             }
-            KeyValuePair<int, int> seat= GetWagon(id, departure, arrival, time);
+            KeyValuePair<int, int> seat = GetWagon(id, departure, arrival, time);
             if (seat.Key == 0)
             {
                 //MessageBox.Show($"There are no more seats available in this train");
@@ -302,7 +302,7 @@ namespace TrainScheduler
                         boxMessage.ShowDialog();
                     }
                 }
-          
+
                 PDF pdfWin = new PDF();
                 pdfWin.showTicket(this.user, seat.Key);
 
@@ -323,36 +323,36 @@ namespace TrainScheduler
 
             if (trip_id_box.Text == "")
                 return;
-            
+
             var trainData = from t in context.Trains
-                        join ls in context.LineStations
-                        on t.Line_id equals ls.Line_id    //for trains ids
+                            join ls in context.LineStations
+                            on t.Line_id equals ls.Line_id    //for trains ids
 
-                        join s in context.Stations
-                        on ls.Station_id equals s.Station_id  //for departure stations
+                            join s in context.Stations
+                            on ls.Station_id equals s.Station_id  //for departure stations
 
-                        join ls2 in context.LineStations
-                        on t.Line_id equals ls2.Line_id
+                            join ls2 in context.LineStations
+                            on t.Line_id equals ls2.Line_id
 
-                        join s2 in context.Stations
-                        on ls2.Station_id equals s2.Station_id
+                            join s2 in context.Stations
+                            on ls2.Station_id equals s2.Station_id
 
-                        where ls2.ArrivalTime != null && ls.DepartureTime != null &&
-                        ls.Distance < ls2.Distance && ls.Line_id == ls2.Line_id && s.Name == departure && s2.Name == arrival
-                        select new
-                        {
-                            //ID = ls.LineStations_id,
-                            ID = t.Train_id,
-                            Departure = s.Name,
-                            Arrival = s2.Name,
-                            Time = ls.DepartureTime,
-                            Distance = ls2.Distance,
-                            Price = ls2.Distance * 0.3
-                        };
+                            where ls2.ArrivalTime != null && ls.DepartureTime != null &&
+                            ls.Distance < ls2.Distance && ls.Line_id == ls2.Line_id && s.Name == departure && s2.Name == arrival
+                            select new
+                            {
+                                //ID = ls.LineStations_id,
+                                ID = t.Train_id,
+                                Departure = s.Name,
+                                Arrival = s2.Name,
+                                Time = ls.DepartureTime,
+                                Distance = ls2.Distance,
+                                Price = ls2.Distance * 0.3
+                            };
 
             foreach (var t in trainData)
             {
-                if(t.ID == Convert.ToInt32(trip_id_box.Text))
+                if (t.ID == Convert.ToInt32(trip_id_box.Text))
                 {
                     BookTicket(t.ID, t.Departure, t.Arrival, calendar.SelectedDate, t.Price);
                 }
@@ -377,7 +377,8 @@ namespace TrainScheduler
             string departure = departureCombo.Text;
             string arrival = arrivalCombo.Text;
 
-            if(arrival.Length>=1){
+            if (arrival.Length >= 1)
+            {
 
                 var trainData = from t in context.Trains
                                 join ls in context.LineStations
@@ -402,7 +403,7 @@ namespace TrainScheduler
                                     Arrival = s2.Name,
                                     Time = ls.DepartureTime,
                                     Distance = ls2.Distance,
-                                    Price = (ls2.Distance * 0.3).ToString()+" RON"
+                                    Price = (ls2.Distance * 0.3).ToString() + " RON"
                                 };
 
 
@@ -420,6 +421,14 @@ namespace TrainScheduler
                     return;
                 };
 
+            }
+        }
+
+        private void trip_id_box_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                bookButton_Click(null,null);
             }
         }
     }

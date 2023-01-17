@@ -39,29 +39,29 @@
                 <StackPanel Margin="16 30 0 6" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
 
                     <StackPanel Margin="16 0 0 6" Orientation="Vertical" HorizontalAlignment="Left">
-                        
+
                         <StackPanel Margin="16 0 0 6" Orientation="Horizontal" HorizontalAlignment="Left">
-                            
+
                             <Label Content="Departure Station: " />
                             <ComboBox x:Name="departureCombo" Width="120" />
                         </StackPanel>
-                
+
                         <StackPanel Margin="16 0 0 6" Orientation="Horizontal" HorizontalAlignment="Left">
                             <Label Content="Arrival Station: " HorizontalAlignment="Left"/>
                             <ComboBox x:Name="arrivalCombo"  Width="120" SelectedIndex="0" Margin="20,0,0,0" HorizontalAlignment="Left" />
                         </StackPanel>
-                        
+
                         <StackPanel Margin="16 0 0 6" Orientation="Vertical" HorizontalAlignment="Left">
                             <Label x:Name="selectDate" Content="Select Date: " HorizontalAlignment="Left" Margin="0,0,0,0" />
                             <Calendar x:Name="calendar" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
-                       
+
                         </StackPanel>
 
                     </StackPanel>
                     <StackPanel Margin="10 0 0 6" Orientation="Vertical" HorizontalAlignment="Left">
 
                         <StackPanel Margin="16 0 0 6" Orientation="Vertical" HorizontalAlignment="Left">
-                            
+
                             <StackPanel Margin="16 0 0 6" Orientation="Vertical" HorizontalAlignment="Left">
                                 <Label Content="Trains: " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
                                 <DataGrid x:Name="trainGrid" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="540" Height="300"/>
@@ -69,7 +69,7 @@
 
                             <StackPanel Margin="16 30 0 6" Orientation="Horizontal" HorizontalAlignment="Left">
                                 <Label Content="What train would you want to book?" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-                                <TextBox x:Name="trip_id_box" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" InputScope="Default"/>
+                                <TextBox x:Name="trip_id_box" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" InputScope="Default" KeyDown="trip_id_box_KeyDown"/>
                             </StackPanel>
 
                             <StackPanel Margin="16 0 0 6" Orientation="Vertical" HorizontalAlignment="Left">
@@ -82,9 +82,9 @@
 
                 </StackPanel>
 
-            <TextBox Text="{Binding ElementName= departureCombo, Path=Text}" TextChanged="departureCombo_SelectionChanged" Visibility="Hidden"/>
-            <TextBox Text="{Binding ElementName= arrivalCombo, Path=Text}" TextChanged="arrivalCombo_SelectionChanged" Visibility="Hidden"/>
-        
+                <TextBox Text="{Binding ElementName= departureCombo, Path=Text}" TextChanged="departureCombo_SelectionChanged" Visibility="Hidden"/>
+                <TextBox Text="{Binding ElementName= arrivalCombo, Path=Text}" TextChanged="arrivalCombo_SelectionChanged" Visibility="Hidden"/>
+
             </StackPanel>
 
         </materialDesign:DialogHost>

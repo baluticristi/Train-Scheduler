@@ -155,7 +155,7 @@ namespace TrainScheduler
         }
         private void ShowSingleTrain()
         {
-            if(isJustDigits(trainNumberTxTBox.Text) == false)
+            if (isJustDigits(trainNumberTxTBox.Text) == false)
             {
                 //MessageBox.Show($"The train with the id: {trainNumberTxTBox.Text} does not exist!");
                 MessageBoxWin boxMessage = new MessageBoxWin();
@@ -254,7 +254,7 @@ namespace TrainScheduler
 
         private void trainNumberTxTBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Enter) 
+            if (e.Key == Key.Enter)
                 this.ShowSingleTrain();
         }
     }
