@@ -4,5 +4,4 @@ A train scheduler app is a type of application that is used to manage and organi
 
 The app has a user interface that displays a list of trains and their schedules, along with information about destinations, departure times, and other details. The app does also include features such as the ability to search for trains, view train routes on a map, and book tickets.
 
-Jipianu Toras
-Baluti Ilie
+The presentation of the app, is in the Presentation.docx document.
